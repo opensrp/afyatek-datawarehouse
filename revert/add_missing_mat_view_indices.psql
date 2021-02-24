@@ -1,0 +1,21 @@
+-- Revert afya-tek:add_missing_mat_view_indices from pg
+
+BEGIN;
+
+SET search_path TO afyatek_views;
+DROP INDEX afyatek_views.danger_signs_child_lk_test_views_uniq;
+DROP INDEX afyatek_views.update_child_registration_view_uniq;
+DROP INDEX afyatek_views.remove_family_member_view_uniq;
+DROP INDEX afyatek_views.child_addo_visit_view_uniq;
+DROP INDEX afyatek_views.home_visit_danger_signs_view_uniq;
+
+SET search_path TO afyatek_final;
+DROP INDEX afyatek_final.remove_family_final_uniq;
+DROP INDEX afyatek_final.pregnancy_outcome_final_uniq;
+DROP INDEX afyatek_final.home_visit_danger_signs_final_uniq;
+DROP INDEX afyatek_final.child_addo_visit_final_uniq;
+DROP INDEX afyatek_final.anc_home_visit_not_done_final_uniq;
+DROP INDEX update_child_registration_final_uniq;
+DROP INDEX remove_family_member_final_uniq;
+
+COMMIT;

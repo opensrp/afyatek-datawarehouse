@@ -1,0 +1,7 @@
+-- Verify afya-tek:initial_migrations on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+ROLLBACK;

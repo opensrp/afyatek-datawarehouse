@@ -1,0 +1,91 @@
+-- Verify afya-tek:add_missing_mat_view_indices on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+-- simple view that returns views that do not have unique indices
+-- courtest of https://dba.stackexchange.com/questions/101899/list-materialized-views-in-postgresql-that-do-not-have-a-unique-index
+CREATE VIEW matviews_without_unique_index AS
+WITH matviews_with_unqiue_keys AS (
+  SELECT c.oid, c.relname, c2.relname AS idx_name
+  FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+  LEFT JOIN pg_catalog.pg_constraint con ON (
+    conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u'))
+  WHERE
+    c.relkind = 'm' AND
+    c.oid = i.indrelid AND i.indexrelid = c2.oid AND indisunique
+)
+SELECT c.relname
+FROM pg_class c
+WHERE c.relkind = 'm'
+EXCEPT
+SELECT mwk.relname
+FROM matviews_with_unqiue_keys as mwk;
+
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'danger_signs_child_lk_test_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'danger_signs_child_lk_test_views';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_relations_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_relations_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_member_relations_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_member_relations_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_member_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_family_member_registration_view';
+-- SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_child_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_child_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_adolescent_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'update_adolescent_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'tasks_final';
+-- SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'remove_family_member_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'remove_family_member_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'remove_family_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'remove_family_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'remove_child_under_5_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'remove_child_under_5_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'referral_follow_up_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'referral_follow_up_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'pregnancy_outcome_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'pregnancy_outcome_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'pnc_home_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'pnc_home_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'other_member_addo_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'other_member_addo_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'linkage_follow_up_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'linkage_follow_up_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'home_visit_danger_signs_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'home_visit_danger_signs_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'family_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'family_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'family_member_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'family_member_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'danger_signs_mother_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'danger_signs_mother_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'danger_signs_child_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'danger_signs_child_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'clients_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'child_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'child_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'child_home_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'child_home_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'child_addo_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'child_addo_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_home_visit_not_done_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_home_visit_not_done_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_home_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_home_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_addo_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'anc_addo_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'adolescent_registration_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'adolescent_registration_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'adolescent_home_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'adolescent_home_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'adolescent_addo_visit_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'adolescent_addo_visit_view';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'additional_needs_adolescent_final';
+SELECT 1/(1-count(*)) FROM matviews_without_unique_index WHERE relname = 'additional_needs_adolescent_view';
+
+ROLLBACK;

@@ -1,0 +1,25 @@
+-- Deploy afya-tek:setup to pg
+
+BEGIN;
+
+-- these existed in initial afya-tek DB dump
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+CREATE SCHEMA IF NOT EXISTS afyatek_views;
+CREATE SCHEMA IF NOT EXISTS afyatek_final;
+CREATE SCHEMA IF NOT EXISTS db_state;
+CREATE SCHEMA IF NOT EXISTS raw_data;
+
+ALTER SCHEMA afyatek_views OWNER TO :db_user;
+ALTER SCHEMA afyatek_final OWNER TO :db_user;
+ALTER SCHEMA db_state OWNER TO :db_user;
+ALTER SCHEMA raw_data OWNER TO :db_user;
+
+-- these are used to help with sqitch migrations qorkflows
+CREATE SCHEMA IF NOT EXISTS afyatek_pending_migrations;
+CREATE SCHEMA IF NOT EXISTS afyatek_deprecated_migrations;
+
+ALTER SCHEMA afyatek_pending_migrations OWNER TO :db_user;
+ALTER SCHEMA afyatek_deprecated_migrations OWNER TO :db_user;
+
+COMMIT;

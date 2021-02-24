@@ -1,0 +1,286 @@
+-- Revert afya-tek:initial_migrations from pg
+
+BEGIN;
+
+DROP TABLE public.openmrs_addo_user_mapping_final;
+DROP TABLE public.openmrs_user_mapping_final;
+
+-- has pkey
+DROP TABLE raw_data.raw_tasks;
+-- has pkey
+DROP TABLE raw_data.raw_events;
+-- has pkey
+DROP TABLE raw_data.raw_clients;
+
+-- has pkey
+DROP TABLE public.visit_not_done;
+-- has pkey
+DROP TABLE public.vaccinations;
+-- has pkey
+DROP TABLE public.recurring_services;
+-- has pkey
+DROP TABLE public.pnc_addo_visit;
+DROP TABLE public.openmrs_location_mapping_final;
+-- has pkey
+DROP TABLE public.home_visit_facility_visit;
+DROP TABLE public.failed_tasks;
+-- has pkey
+DROP TABLE public.danger_signs_new_born;
+-- has pkey
+DROP TABLE public.anc_home_visit_not_done_undo;
+DROP TABLE public.adolescent_home_visit_not_done;
+-- has pkey
+DROP TABLE db_state.existing_tables;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.danger_signs_child_lk_test_final;
+DROP MATERIALIZED VIEW afyatek_views.danger_signs_child_lk_test_views;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.update_family_relations_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.update_family_relations_view;
+-- has pkey
+DROP TABLE public.update_family_relations;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.update_family_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.update_family_registration_view;
+-- has pkey
+DROP TABLE public.update_family_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.update_family_member_relations_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.update_family_member_relations_view;
+-- has pkey
+DROP TABLE public.update_family_member_relations;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.update_family_member_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.update_family_member_registration_view;
+-- has pkey
+DROP TABLE public.update_family_member_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.update_child_registration_final;
+DROP MATERIALIZED VIEW afyatek_views.update_child_registration_view;
+-- has pkey
+DROP TABLE public.update_child_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.update_adolescent_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.update_adolescent_registration_view;
+-- has pkey
+DROP TABLE public.update_adolescent_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.tasks_final;
+-- has pkey
+DROP TABLE public.tasks;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.remove_family_member_final;
+DROP MATERIALIZED VIEW afyatek_views.remove_family_member_view;
+-- has pkey
+DROP TABLE public.remove_family_member;
+
+DROP MATERIALIZED VIEW afyatek_final.remove_family_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.remove_family_view;
+-- has pkey
+DROP TABLE public.remove_family;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.remove_child_under_5_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.remove_child_under_5_view;
+-- has pkey
+DROP TABLE public.remove_child_under_5;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.referral_follow_up_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.referral_follow_up_visit_view;
+-- has pkey
+DROP TABLE public.referral_follow_up_visit;
+
+DROP MATERIALIZED VIEW afyatek_final.pregnancy_outcome_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.pregnancy_outcome_view;
+-- has pkey
+DROP TABLE public.pregnancy_outcome;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.pnc_home_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.pnc_home_visit_view;
+-- has pkey
+DROP TABLE public.pnc_home_visit;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.other_member_addo_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.other_member_addo_visit_view;
+-- has pkey
+DROP TABLE public.other_member_addo_visit;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.linkage_follow_up_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.linkage_follow_up_visit_view;
+-- has pkey
+DROP TABLE public.linkage_follow_up_visit;
+
+DROP MATERIALIZED VIEW afyatek_final.home_visit_danger_signs_final;
+DROP MATERIALIZED VIEW afyatek_views.home_visit_danger_signs_view;
+-- has pkey
+DROP TABLE public.home_visit_danger_signs;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.family_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.family_registration_view;
+-- has pkey
+DROP TABLE public.family_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.family_member_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.family_member_registration_view;
+-- has pkey
+DROP TABLE public.family_member_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.danger_signs_mother_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.danger_signs_mother_view;
+-- has pkey
+DROP TABLE public.danger_signs_mother;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.danger_signs_child_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.danger_signs_child_view;
+-- has pkey
+DROP TABLE public.danger_signs_child;
+
+-- has unique index
+DROP MATERIALIZED VIEW IF EXISTS afyatek_final.clients_final;
+-- has pkey
+DROP TABLE IF EXISTS public.clients;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.child_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.child_registration_view;
+-- has pkey
+DROP TABLE public.child_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.child_home_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.child_home_visit_view;
+-- has pkey
+DROP TABLE public.child_home_visit;
+
+DROP MATERIALIZED VIEW afyatek_final.child_addo_visit_final;
+DROP MATERIALIZED VIEW afyatek_views.child_addo_visit_view;
+-- has pkey
+DROP TABLE public.child_addo_visit;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.anc_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.anc_registration_view;
+-- has pkey
+DROP TABLE public.anc_registration;
+
+DROP MATERIALIZED VIEW afyatek_final.anc_home_visit_not_done_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.anc_home_visit_not_done_view;
+-- has pkey
+DROP TABLE public.anc_home_visit_not_done;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.anc_home_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.anc_home_visit_view;
+-- has pkey
+DROP TABLE public.anc_home_visit;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.anc_addo_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.anc_addo_visit_view;
+-- has pkey
+DROP TABLE  public.anc_addo_visit;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.adolescent_registration_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.adolescent_registration_view;
+-- has pkey
+DROP TABLE public.adolescent_registration;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.adolescent_home_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.adolescent_home_visit_view;
+-- has pkey
+DROP TABLE public.adolescent_home_visit;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.adolescent_addo_visit_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.adolescent_addo_visit_view;
+DROP TABLE public.adolescent_addo_visit;
+
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_final.additional_needs_adolescent_final;
+-- has unique index
+DROP MATERIALIZED VIEW afyatek_views.additional_needs_adolescent_view;
+-- has pkey
+DROP TABLE public.additional_needs_adolescent;
+
+DROP FUNCTION public.vitamin_a();
+DROP FUNCTION public.update_referral_follow_up_visit_final();
+DROP FUNCTION public.update_pnc_home_visit_final();
+DROP FUNCTION public.update_linkage_follow_up_visit_final();
+DROP FUNCTION public.update_home_visit_danger_signs_final();
+DROP FUNCTION public.update_family_relations();
+DROP FUNCTION public.update_family_registration();
+DROP FUNCTION public.update_family_member_relations();
+DROP FUNCTION public.update_family_member_registration();
+DROP FUNCTION public.update_danger_signs_mother_final();
+DROP FUNCTION public.update_child_registration();
+DROP FUNCTION public.update_child_home_visit_revised();
+DROP FUNCTION public.update_child_home_visit_final();
+DROP FUNCTION public.update_anc_home_visit_final();
+DROP FUNCTION public.update_anc_addo_visit_final();
+DROP FUNCTION public.update_adolescent_home_visit_final();
+DROP FUNCTION public.remove_family_member();
+DROP FUNCTION public.remove_family();
+DROP FUNCTION public.remove_child_under_5();
+DROP FUNCTION public.referral_follow_up_visit();
+DROP FUNCTION public.pregnancy_outcome();
+DROP FUNCTION public.linkage_follow_up_visit();
+DROP FUNCTION public.family_registration();
+DROP FUNCTION public.family_member_registration();
+DROP FUNCTION public.de_worming();
+DROP FUNCTION public.danger_signs_child_test();
+DROP FUNCTION public.create_new_tables();
+DROP FUNCTION public.clients_final();
+DROP FUNCTION public.child_registration();
+DROP FUNCTION public.child_home_visit();
+DROP FUNCTION public.anc_registration();
+DROP FUNCTION public.anc_home_visit();
+DROP FUNCTION public.anc_addo_visit();
+DROP FUNCTION public.adolescent_registration();
+DROP FUNCTION public.adolescent_home_visit();
+DROP FUNCTION public.adolescent_addo_visit();
+
+COMMIT;

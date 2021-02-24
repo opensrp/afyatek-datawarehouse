@@ -1,0 +1,12 @@
+-- Revert afya-tek:setup from pg
+
+BEGIN;
+
+DROP SCHEMA IF EXISTS afyatek_views;
+DROP SCHEMA IF EXISTS afyatek_final;
+DROP SCHEMA IF EXISTS db_state;
+DROP SCHEMA IF EXISTS raw_data;
+DROP SCHEMA IF EXISTS afyatek_pending_migrations;
+DROP SCHEMA IF EXISTS afyatek_deprecated_migrations;
+
+COMMIT;
