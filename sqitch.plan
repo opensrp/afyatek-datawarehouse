@@ -1,6 +1,6 @@
 %syntax-version=1.0.0
 %project=afya-tek
-%uri=https://github.com/onaio/data-solutions/tree/master/afya-tek
+%uri=https://github.com/OpenSRP/afyatek-datawarehouse
 
 setup 2021-02-19T11:29:28Z mosh <kjayanoris@ona.io> # Set up database.
 initial_migrations 2021-02-19T11:41:10Z mosh <kjayanoris@ona.io> # Initial migrations from DB dump.
