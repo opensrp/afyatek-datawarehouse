@@ -5,7 +5,7 @@ BEGIN;
 -- XXX Add verifications here.
 
 -- simple view that returns views that do not have unique indices
--- courtest of https://dba.stackexchange.com/questions/101899/list-materialized-views-in-postgresql-that-do-not-have-a-unique-index
+-- courtesy of https://dba.stackexchange.com/questions/101899/list-materialized-views-in-postgresql-that-do-not-have-a-unique-index
 CREATE VIEW matviews_without_unique_index AS
 WITH matviews_with_unqiue_keys AS (
   SELECT c.oid, c.relname, c2.relname AS idx_name

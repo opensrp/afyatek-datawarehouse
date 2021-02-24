@@ -15,7 +15,7 @@ ALTER SCHEMA afyatek_final OWNER TO :db_user;
 ALTER SCHEMA db_state OWNER TO :db_user;
 ALTER SCHEMA raw_data OWNER TO :db_user;
 
--- these are used to help with sqitch migrations qorkflows
+-- these are used to help with sqitch migrations workflows
 CREATE SCHEMA IF NOT EXISTS afyatek_pending_migrations;
 CREATE SCHEMA IF NOT EXISTS afyatek_deprecated_migrations;
 
