@@ -1,0 +1,194 @@
+-- Deploy afya-tek:drop_materialized_views_refresh_functions to pg
+-- requires: setup
+-- requires: initial_migrations
+-- requires: add_missing_mat_view_indices
+-- requires: drop_triggers
+
+BEGIN;
+
+-- XXX Add DDLs here.
+
+
+--
+-- Name: danger_signs_child_test(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.danger_signs_child_test();
+--
+
+--
+-- Name: de_worming(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.de_worming();
+--
+
+--
+-- Name: family_member_registration(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.family_member_registration();
+--
+
+--
+-- Name: family_registration(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.family_registration();
+--
+
+--
+-- Name: linkage_follow_up_visit(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.linkage_follow_up_visit();
+--
+
+--
+-- Name: pregnancy_outcome(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.pregnancy_outcome();
+--
+
+--
+-- Name: referral_follow_up_visit(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.referral_follow_up_visit();
+--
+
+--
+-- Name: remove_child_under_5(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.remove_child_under_5();
+--
+
+--
+-- Name: remove_family(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.remove_family();
+--
+
+--
+-- Name: remove_family_member(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.remove_family_member();
+--
+
+--
+-- Name: update_adolescent_home_visit_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_adolescent_home_visit_final();
+--
+
+--
+-- Name: update_anc_addo_visit_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_anc_addo_visit_final();
+--
+
+--
+-- Name: update_anc_home_visit_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_anc_home_visit_final();
+--
+
+--
+-- Name: update_child_home_visit_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_child_home_visit_final();
+--
+
+--
+-- Name: update_child_home_visit_revised(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_child_home_visit_revised();
+--
+
+--
+-- Name: update_child_registration(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_child_registration();
+--
+
+--
+-- Name: update_danger_signs_mother_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_danger_signs_mother_final();
+--
+
+--
+-- Name: update_family_member_registration(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_family_member_registration();
+--
+
+--
+-- Name: update_family_member_relations(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_family_member_relations();
+--
+
+--
+-- Name: update_family_registration(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_family_registration();
+--
+
+--
+-- Name: update_family_relations(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_family_relations();
+--
+
+--
+-- Name: update_home_visit_danger_signs_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_home_visit_danger_signs_final();
+--
+
+--
+-- Name: update_linkage_follow_up_visit_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_linkage_follow_up_visit_final();
+--
+
+--
+-- Name: update_pnc_home_visit_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_pnc_home_visit_final();
+--
+
+--
+-- Name: update_referral_follow_up_visit_final(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.update_referral_follow_up_visit_final();
+--
+
+--
+-- Name: vitamin_a(); Type: FUNCTION; Schema: public; Owner: dtreedev
+--
+
+DROP FUNCTION IF EXISTS public.vitamin_a();
+
+
+COMMIT;

@@ -5,3 +5,7 @@
 setup 2021-02-19T11:29:28Z mosh <kjayanoris@ona.io> # Set up database.
 initial_migrations 2021-02-19T11:41:10Z mosh <kjayanoris@ona.io> # Initial migrations from DB dump.
 add_missing_mat_view_indices 2021-02-19T13:13:33Z mosh <kjayanoris@ona.io> # Add missing unique indices for materialized views.
+drop_triggers [setup initial_migrations add_missing_mat_view_indices] 2021-02-25T22:20:24Z ukanga <ukanga@archlinux> # Drop triggers\n\nWe will be switching to views instead of materialised views, hence\ntriggers will no longer be necessary to refresh the materialized views.
+drop_materialized_views_refresh_functions [setup initial_migrations add_missing_mat_view_indices drop_triggers] 2021-02-25T22:39:54Z ukanga <ukanga@archlinux> # Drop the functions that refresh materialized views.
+drop_materialized_views [setup initial_migrations add_missing_mat_view_indices drop_triggers drop_materialized_views_refresh_functions] 2021-02-25T23:00:56Z ukanga <ukanga@archlinux> # Drop unnecessary materialised views
+add_normal_views [setup initial_migrations add_missing_mat_view_indices drop_triggers drop_materialized_views_refresh_functions drop_materialized_views] 2021-02-25T23:17:02Z ukanga <ukanga@archlinux> # Add normal views instead of the materialized views.

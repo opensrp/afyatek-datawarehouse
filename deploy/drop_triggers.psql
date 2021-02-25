@@ -1,0 +1,88 @@
+-- Deploy afya-tek:drop_triggers to pg
+-- requires: setup
+-- requires: initial_migrations
+-- requires: add_missing_mat_view_indices
+
+BEGIN;
+
+-- XXX Add DDLs here.
+
+--
+-- Name: adolescent_addo_visit refresh_adolescent_addo_visit_final; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_adolescent_addo_visit_final ON public.adolescent_addo_visit;
+
+--
+-- Name: adolescent_home_visit refresh_adolescent_home_visit_final; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_adolescent_home_visit_final ON public.adolescent_home_visit;
+
+--
+-- Name: anc_addo_visit refresh_anc_addo_visit_final; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_anc_addo_visit_final ON public.anc_addo_visit;
+
+--
+-- Name: anc_registration refresh_anc_registration; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_anc_registration ON public.anc_registration;
+
+--
+-- Name: adolescent_home_visit refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.adolescent_home_visit;
+
+--
+-- Name: anc_addo_visit refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.anc_addo_visit;
+
+--
+-- Name: anc_home_visit refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.anc_home_visit;
+
+--
+-- Name: child_home_visit refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.child_home_visit;
+
+--
+-- Name: danger_signs_mother refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.danger_signs_mother;
+
+--
+-- Name: home_visit_danger_signs refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.home_visit_danger_signs;
+
+--
+-- Name: pnc_home_visit refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.pnc_home_visit;
+
+--
+-- Name: referral_follow_up_visit refresh_danger_signs_child; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child ON public.referral_follow_up_visit;
+
+--
+-- Name: danger_signs_child refresh_danger_signs_child_test; Type: TRIGGER; Schema: public; Owner: dtreedev
+--
+
+DROP TRIGGER IF EXISTS refresh_danger_signs_child_test ON public.danger_signs_child;
+
+COMMIT;
