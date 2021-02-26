@@ -1,0 +1,7 @@
+-- Verify afya-tek:drop_materialized_views on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+ROLLBACK;

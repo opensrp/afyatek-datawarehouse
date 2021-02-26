@@ -1,0 +1,457 @@
+-- Revert afya-tek:drop_materialized_views from pg
+
+BEGIN;
+
+-- XXX Add DDLs here.
+
+--
+-- Name: additional_needs_adolescent_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.additional_needs_adolescent_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: additional_needs_adolescent_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.additional_needs_adolescent_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: adolescent_addo_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.adolescent_addo_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: adolescent_addo_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.adolescent_addo_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: adolescent_home_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.adolescent_home_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: adolescent_home_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.adolescent_home_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: adolescent_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.adolescent_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: adolescent_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.adolescent_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: anc_addo_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.anc_addo_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: anc_addo_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.anc_addo_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: anc_home_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.anc_home_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: anc_home_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.anc_home_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: anc_home_visit_not_done_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.anc_home_visit_not_done_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: anc_home_visit_not_done_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.anc_home_visit_not_done_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: anc_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.anc_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: anc_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.anc_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: child_addo_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.child_addo_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: child_addo_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.child_addo_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: child_home_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.child_home_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: child_home_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.child_home_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: child_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.child_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: child_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.child_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: clients_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.clients_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: danger_signs_child_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.danger_signs_child_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: danger_signs_child_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.danger_signs_child_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: danger_signs_mother_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.danger_signs_mother_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: danger_signs_mother_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.danger_signs_mother_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: family_member_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.family_member_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: family_member_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.family_member_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: family_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.family_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: family_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.family_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: home_visit_danger_signs_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.home_visit_danger_signs_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: home_visit_danger_signs_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.home_visit_danger_signs_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: linkage_follow_up_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.linkage_follow_up_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: linkage_follow_up_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.linkage_follow_up_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: other_member_addo_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.other_member_addo_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: other_member_addo_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.other_member_addo_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: pnc_home_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.pnc_home_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: pnc_home_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.pnc_home_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: pregnancy_outcome_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.pregnancy_outcome_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: pregnancy_outcome_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.pregnancy_outcome_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: referral_follow_up_visit_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.referral_follow_up_visit_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: referral_follow_up_visit_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.referral_follow_up_visit_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: remove_child_under_5_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.remove_child_under_5_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: remove_child_under_5_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.remove_child_under_5_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: remove_family_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.remove_family_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: remove_family_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.remove_family_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: remove_family_member_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.remove_family_member_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: remove_family_member_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.remove_family_member_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: tasks_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.tasks_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: update_adolescent_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.update_adolescent_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: update_adolescent_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.update_adolescent_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: update_child_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.update_child_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: update_child_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.update_child_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: update_family_member_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.update_family_member_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: update_family_member_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.update_family_member_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: update_family_member_relations_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.update_family_member_relations_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: update_family_member_relations_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.update_family_member_relations_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: update_family_registration_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.update_family_registration_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: update_family_registration_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.update_family_registration_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: update_family_relations_view; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.update_family_relations_view SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: update_family_relations_final; Type: MATERIALIZED VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_final_deprecated.update_family_relations_final SET SCHEMA afyatek_final;
+--
+
+--
+-- Name: danger_signs_child_lk_test_views; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.danger_signs_child_lk_test_views SET SCHEMA afyatek_views;
+--
+
+--
+-- Name: danger_signs_child_lk_test_final; Type: MATERIALIZED VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+ALTER MATERIALIZED VIEW afyatek_views_deprecated.danger_signs_child_lk_test_final SET SCHEMA afyatek_views;
+
+DROP SCHEMA IF EXISTS afyatek_final_deprecated;
+DROP SCHEMA IF EXISTS afyatek_views_deprecated;
+
+COMMIT;

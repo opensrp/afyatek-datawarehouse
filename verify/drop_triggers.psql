@@ -1,0 +1,7 @@
+-- Verify afya-tek:drop_triggers on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+ROLLBACK;
