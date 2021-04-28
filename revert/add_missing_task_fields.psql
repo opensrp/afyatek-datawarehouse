@@ -1,0 +1,12 @@
+-- Revert afya-tek:add_missing_task_fields from pg
+
+BEGIN;
+
+ALTER TABLE public.tasks
+DROP COLUMN location,
+DROP COLUMN requester,
+DROP COLUMN authored_on,
+DROP COLUMN last_modified,
+DROP COLUMN reason_reference;
+
+COMMIT;
