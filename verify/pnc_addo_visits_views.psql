@@ -1,0 +1,13 @@
+-- Verify afya-tek:pnc_addo_visits_views on pg
+
+BEGIN;
+
+SELECT 1/count(*)
+FROM pg_views
+WHERE schemaname = 'afyatek_views' AND viewname = 'pnc_addo_visit_view';
+
+SELECT 1/count(*)
+FROM pg_views
+WHERE schemaname = 'afyatek_final' AND viewname = 'pnc_addo_visit_final';
+
+ROLLBACK;
