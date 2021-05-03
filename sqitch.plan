@@ -9,3 +9,5 @@ drop_triggers [setup initial_migrations add_missing_mat_view_indices] 2021-02-25
 drop_materialized_views_refresh_functions [setup initial_migrations add_missing_mat_view_indices drop_triggers] 2021-02-25T22:39:54Z ukanga <ukanga@archlinux> # Drop the functions that refresh materialized views.
 drop_materialized_views [setup initial_migrations add_missing_mat_view_indices drop_triggers drop_materialized_views_refresh_functions] 2021-02-25T23:00:56Z ukanga <ukanga@archlinux> # Drop unnecessary materialised views
 add_normal_views [setup initial_migrations add_missing_mat_view_indices drop_triggers drop_materialized_views_refresh_functions drop_materialized_views] 2021-02-25T23:17:02Z ukanga <ukanga@archlinux> # Add normal views instead of the materialized views.
+add_missing_task_fields 2021-04-28T08:48:43Z mosh <kjayanoris@ona.io> # Add missing task fields.
+pnc_addo_visits_views 2021-04-30T09:19:42Z mosh <kjayanoris@ona.io> # Adds views for pnc addo visits events.

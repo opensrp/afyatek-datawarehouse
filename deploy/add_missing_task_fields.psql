@@ -1,0 +1,12 @@
+-- Deploy afya-tek:add_missing_task_fields to pg
+
+BEGIN;
+
+ALTER TABLE public.tasks
+ADD COLUMN location VARCHAR NULL,
+ADD COLUMN requester VARCHAR NULL,
+ADD COLUMN authored_on TIMESTAMP WITHOUT TIME ZONE,
+ADD COLUMN last_modified TIMESTAMP WITHOUT TIME ZONE,
+ADD COLUMN reason_reference VARCHAR NULL;
+
+COMMIT;

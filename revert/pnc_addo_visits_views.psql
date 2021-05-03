@@ -1,0 +1,8 @@
+-- Revert afya-tek:pnc_addo_visits_views from pg
+
+BEGIN;
+
+DROP VIEW IF EXISTS afyatek_views.pnc_addo_visit_view CASCADE;
+DROP VIEW IF EXISTS afyatek_final.pnc_addo_visit_final CASCADE;
+
+COMMIT;
