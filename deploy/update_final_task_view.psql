@@ -1,0 +1,22 @@
+-- Deploy afya-tek:update_final_task_view to pg
+
+BEGIN;
+
+SET search_path TO afyatek_final;
+
+ALTER VIEW tasks_final RENAME TO tasks_final_20210506;
+ALTER VIEW tasks_final_20210506
+SET SCHEMA afyatek_deprecated_migrations;
+
+--
+-- Name: tasks_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_final.tasks_final AS
+ SELECT g.*,
+    public.uuid_generate_v4() AS unique_id
+   FROM public.tasks g;
+
+ALTER TABLE afyatek_final.tasks_final OWNER TO :db_user;
+
+COMMIT;
