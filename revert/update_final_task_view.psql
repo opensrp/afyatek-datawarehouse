@@ -1,0 +1,13 @@
+-- Revert afya-tek:update_final_task_view from pg
+
+BEGIN;
+
+SET search_path TO afyatek_final;
+
+DROP VIEW tasks_final;
+ALTER VIEW afyatek_deprecated_migrations.tasks_final_20210506
+SET SCHEMA afyatek_final;
+ALTER VIEW tasks_final_20210506 RENAME TO tasks_final;
+
+
+COMMIT;
