@@ -1,0 +1,92 @@
+-- Deploy afya-tek:facility_visit_views to pg
+
+BEGIN;
+
+--
+-- Name: pnc_health_facility_visit; Type: VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_views.pnc_health_facility_visit AS
+ SELECT g.id,
+    g.base_entity_id,
+    g.entity_type,
+    g.event_date,
+    g.event_type,
+    g.team,
+    g.location_id,
+    g.child_location_id,
+    g.provider_id,
+    g.server_version,
+    g.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    ((observations.value -> 'values'::text) ->> 0) AS value_,
+    (observations.value ->> 'formSubmissionField'::text) AS formsubmissionfield_,
+    ((observations.value -> 'humanReadableValues'::text) ->> 0) AS humanreadablevalues_,
+    (observations.value ->> 'set'::text) AS set_,
+    (observations.value -> 'fieldCode'::text) AS fieldcode,
+    (observations.value -> 'fieldType'::text) AS fieldtype,
+    (observations.value -> 'parentCode'::text) AS parentcode,
+    (observations.value -> 'fieldDataType'::text) AS fielddatatype
+   FROM public.pnc_health_facility_visit g,
+    LATERAL jsonb_array_elements(g.obs) observations(value);
+ALTER TABLE afyatek_views.pnc_health_facility_visit OWNER TO :db_user;
+
+--
+-- Name: child_health_facility_visit; Type: VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_views.child_health_facility_visit AS
+ SELECT g.id,
+    g.base_entity_id,
+    g.entity_type,
+    g.event_date,
+    g.event_type,
+    g.team,
+    g.location_id,
+    g.child_location_id,
+    g.provider_id,
+    g.server_version,
+    g.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    ((observations.value -> 'values'::text) ->> 0) AS value_,
+    (observations.value ->> 'formSubmissionField'::text) AS formsubmissionfield_,
+    ((observations.value -> 'humanReadableValues'::text) ->> 0) AS humanreadablevalues_,
+    (observations.value ->> 'set'::text) AS set_,
+    (observations.value -> 'fieldCode'::text) AS fieldcode,
+    (observations.value -> 'fieldType'::text) AS fieldtype,
+    (observations.value -> 'parentCode'::text) AS parentcode,
+    (observations.value -> 'fieldDataType'::text) AS fielddatatype
+   FROM public.child_health_facility_visit g,
+    LATERAL jsonb_array_elements(g.obs) observations(value);
+ALTER TABLE afyatek_views.child_health_facility_visit OWNER TO :db_user;
+
+--
+-- Name: adolescent_health_facility_visit; Type: VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_views.adolescent_health_facility_visit AS
+ SELECT g.id,
+    g.base_entity_id,
+    g.entity_type,
+    g.event_date,
+    g.event_type,
+    g.team,
+    g.location_id,
+    g.child_location_id,
+    g.provider_id,
+    g.server_version,
+    g.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    ((observations.value -> 'values'::text) ->> 0) AS value_,
+    (observations.value ->> 'formSubmissionField'::text) AS formsubmissionfield_,
+    ((observations.value -> 'humanReadableValues'::text) ->> 0) AS humanreadablevalues_,
+    (observations.value ->> 'set'::text) AS set_,
+    (observations.value -> 'fieldCode'::text) AS fieldcode,
+    (observations.value -> 'fieldType'::text) AS fieldtype,
+    (observations.value -> 'parentCode'::text) AS parentcode,
+    (observations.value -> 'fieldDataType'::text) AS fielddatatype
+   FROM public.adolescent_health_facility_visit g,
+    LATERAL jsonb_array_elements(g.obs) observations(value);
+ALTER TABLE afyatek_views.adolescent_health_facility_visit OWNER TO :db_user;
+
+COMMIT;
