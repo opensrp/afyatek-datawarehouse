@@ -32,6 +32,13 @@ DROP TABLE public.adolescent_home_visit_not_done;
 -- has pkey
 DROP TABLE db_state.existing_tables;
 
+-- these tables are added in a much later migrations but we drop them here
+-- because they were incorrectly not added in this migration initially and
+-- so we can't drop them in later migrations
+DROP TABLE IF EXISTS public.pnc_health_facility_visit;
+DROP TABLE IF EXISTS public.adolescent_health_facility_visit;
+DROP TABLE IF EXISTS public.child_health_facility_visit;
+
 -- has unique index
 DROP MATERIALIZED VIEW afyatek_views.danger_signs_child_lk_test_final;
 DROP MATERIALIZED VIEW afyatek_views.danger_signs_child_lk_test_views;

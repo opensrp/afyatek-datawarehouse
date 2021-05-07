@@ -2,6 +2,79 @@
 
 BEGIN;
 
+-- we need to create the following tables
+--  public.pnc_health_facility_visit
+--  public.adolescent_health_facility_visit
+--  public.child_health_facility_visit
+-- Unfortunately these ^^ tables exist in the database but not in the migrations
+-- and so we need a migration that adds them before we can use them in later migrations
+
+--
+-- Name: pnc_health_facility_visit; Type: TABLE; Schema: public; Owner: dtreedev
+--
+
+CREATE TABLE IF NOT EXISTS public.pnc_health_facility_visit (
+    id character varying(36) NOT NULL,
+    base_entity_id character varying NOT NULL,
+    entity_type character varying NOT NULL,
+    event_date timestamp without time zone NOT NULL,
+    event_type character varying NOT NULL,
+    team character varying NOT NULL,
+    location_id character varying NOT NULL,
+    child_location_id character varying NOT NULL,
+    provider_id character varying NOT NULL,
+    server_version bigint DEFAULT 0 NOT NULL,
+    date_created timestamp without time zone NOT NULL,
+    obs jsonb NOT NULL
+);
+ALTER TABLE public.pnc_health_facility_visit OWNER TO :db_user;
+ALTER TABLE ONLY public.pnc_health_facility_visit
+    ADD CONSTRAINT pnc_health_facility_visit_pkey PRIMARY KEY (id);
+
+--
+-- Name: adolescent_health_facility_visit; Type: TABLE; Schema: public; Owner: dtreedev
+--
+
+CREATE TABLE IF NOT EXISTS public.adolescent_health_facility_visit (
+    id character varying(36) NOT NULL,
+    base_entity_id character varying NOT NULL,
+    entity_type character varying NOT NULL,
+    event_date timestamp without time zone NOT NULL,
+    event_type character varying NOT NULL,
+    team character varying NOT NULL,
+    location_id character varying NOT NULL,
+    child_location_id character varying NOT NULL,
+    provider_id character varying NOT NULL,
+    server_version bigint DEFAULT 0 NOT NULL,
+    date_created timestamp without time zone NOT NULL,
+    obs jsonb NOT NULL
+);
+ALTER TABLE public.adolescent_health_facility_visit OWNER TO :db_user;
+ALTER TABLE ONLY public.adolescent_health_facility_visit
+    ADD CONSTRAINT adolescent_health_facility_visit_pkey PRIMARY KEY (id);
+
+--
+-- Name: child_health_facility_visit; Type: TABLE; Schema: public; Owner: dtreedev
+--
+
+CREATE TABLE IF NOT EXISTS public.child_health_facility_visit (
+    id character varying(36) NOT NULL,
+    base_entity_id character varying NOT NULL,
+    entity_type character varying NOT NULL,
+    event_date timestamp without time zone NOT NULL,
+    event_type character varying NOT NULL,
+    team character varying NOT NULL,
+    location_id character varying NOT NULL,
+    child_location_id character varying NOT NULL,
+    provider_id character varying NOT NULL,
+    server_version bigint DEFAULT 0 NOT NULL,
+    date_created timestamp without time zone NOT NULL,
+    obs jsonb NOT NULL
+);
+ALTER TABLE public.child_health_facility_visit OWNER TO :db_user;
+ALTER TABLE ONLY public.child_health_facility_visit
+    ADD CONSTRAINT child_health_facility_visit_pkey PRIMARY KEY (id);
+
 --
 -- Name: pnc_health_facility_visit; Type: VIEW; Schema: afyatek_views; Owner: dtreedev
 --
