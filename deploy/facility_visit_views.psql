@@ -14,7 +14,7 @@ BEGIN;
 --
 
 CREATE TABLE IF NOT EXISTS public.pnc_health_facility_visit (
-    id character varying(36) NOT NULL,
+    id character varying(36) NOT NULL PRIMARY KEY,
     base_entity_id character varying NOT NULL,
     entity_type character varying NOT NULL,
     event_date timestamp without time zone NOT NULL,
@@ -28,15 +28,13 @@ CREATE TABLE IF NOT EXISTS public.pnc_health_facility_visit (
     obs jsonb NOT NULL
 );
 ALTER TABLE public.pnc_health_facility_visit OWNER TO :db_user;
-ALTER TABLE ONLY public.pnc_health_facility_visit
-    ADD CONSTRAINT pnc_health_facility_visit_pkey PRIMARY KEY (id);
 
 --
 -- Name: adolescent_health_facility_visit; Type: TABLE; Schema: public; Owner: dtreedev
 --
 
 CREATE TABLE IF NOT EXISTS public.adolescent_health_facility_visit (
-    id character varying(36) NOT NULL,
+    id character varying(36) NOT NULL PRIMARY KEY,
     base_entity_id character varying NOT NULL,
     entity_type character varying NOT NULL,
     event_date timestamp without time zone NOT NULL,
@@ -50,15 +48,13 @@ CREATE TABLE IF NOT EXISTS public.adolescent_health_facility_visit (
     obs jsonb NOT NULL
 );
 ALTER TABLE public.adolescent_health_facility_visit OWNER TO :db_user;
-ALTER TABLE ONLY public.adolescent_health_facility_visit
-    ADD CONSTRAINT adolescent_health_facility_visit_pkey PRIMARY KEY (id);
 
 --
 -- Name: child_health_facility_visit; Type: TABLE; Schema: public; Owner: dtreedev
 --
 
 CREATE TABLE IF NOT EXISTS public.child_health_facility_visit (
-    id character varying(36) NOT NULL,
+    id character varying(36) NOT NULL PRIMARY KEY,
     base_entity_id character varying NOT NULL,
     entity_type character varying NOT NULL,
     event_date timestamp without time zone NOT NULL,
@@ -72,8 +68,6 @@ CREATE TABLE IF NOT EXISTS public.child_health_facility_visit (
     obs jsonb NOT NULL
 );
 ALTER TABLE public.child_health_facility_visit OWNER TO :db_user;
-ALTER TABLE ONLY public.child_health_facility_visit
-    ADD CONSTRAINT child_health_facility_visit_pkey PRIMARY KEY (id);
 
 --
 -- Name: pnc_health_facility_visit; Type: VIEW; Schema: afyatek_views; Owner: dtreedev
