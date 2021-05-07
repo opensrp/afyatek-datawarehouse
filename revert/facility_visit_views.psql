@@ -2,6 +2,9 @@
 
 BEGIN;
 
+DROP VIEW IF EXISTS afyatek_final.adolescent_health_facility_visit CASCADE;
+DROP VIEW IF EXISTS afyatek_final.child_health_facility_visit CASCADE;
+DROP VIEW IF EXISTS afyatek_final.pnc_health_facility_visit CASCADE;
 DROP VIEW IF EXISTS afyatek_views.adolescent_health_facility_visit CASCADE;
 DROP VIEW IF EXISTS afyatek_views.child_health_facility_visit CASCADE;
 DROP VIEW IF EXISTS afyatek_views.pnc_health_facility_visit CASCADE;

@@ -162,4 +162,325 @@ CREATE VIEW afyatek_views.adolescent_health_facility_visit AS
     LATERAL jsonb_array_elements(g.obs) observations(value);
 ALTER TABLE afyatek_views.adolescent_health_facility_visit OWNER TO :db_user;
 
+--
+-- Name: pnc_health_facility_visit; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_final.pnc_health_facility_visit AS
+SELECT
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_date'::text)
+            THEN COALESCE(base.humanreadablevalues_, base.value_)
+            ELSE NULL::text
+        END
+    ) AS facility_visit_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'focus',
+                base.value_::JSONB->'nameValuePairs'->>'focus'
+            )
+            ELSE NULL::text
+        END
+    ) AS focus,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'provider',
+                base.value_::JSONB->'nameValuePairs'->>'provider'
+            )
+            ELSE NULL::text
+        END
+    ) AS provider,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_date',
+                base.value_::JSONB->'nameValuePairs'->>'referral_date'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_source',
+                base.value_::JSONB->'nameValuePairs'->>'referral_source'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_source,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_indicator',
+                base.value_::JSONB->'nameValuePairs'->>'referral_indicator'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_indicator,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'visit_type',
+                base.value_::JSONB->'nameValuePairs'->>'visit_type'
+            )
+            ELSE NULL::text
+        END
+    ) AS visit_type,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'has_referral',
+                base.value_::JSONB->'nameValuePairs'->>'has_referral'
+            )
+            ELSE NULL::text
+        END
+    ) AS has_referral
+FROM afyatek_views.pnc_health_facility_visit AS base
+GROUP BY
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created;
+
+--
+-- Name: child_health_facility_visit; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_final.child_health_facility_visit AS
+SELECT
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_date'::text)
+            THEN COALESCE(base.humanreadablevalues_, base.value_)
+            ELSE NULL::text
+        END
+    ) AS facility_visit_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'focus',
+                base.value_::JSONB->'nameValuePairs'->>'focus'
+            )
+            ELSE NULL::text
+        END
+    ) AS focus,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'provider',
+                base.value_::JSONB->'nameValuePairs'->>'provider'
+            )
+            ELSE NULL::text
+        END
+    ) AS provider,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_date',
+                base.value_::JSONB->'nameValuePairs'->>'referral_date'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_source',
+                base.value_::JSONB->'nameValuePairs'->>'referral_source'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_source,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_indicator',
+                base.value_::JSONB->'nameValuePairs'->>'referral_indicator'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_indicator,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'visit_type',
+                base.value_::JSONB->'nameValuePairs'->>'visit_type'
+            )
+            ELSE NULL::text
+        END
+    ) AS visit_type,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'has_referral',
+                base.value_::JSONB->'nameValuePairs'->>'has_referral'
+            )
+            ELSE NULL::text
+        END
+    ) AS has_referral
+FROM afyatek_views.child_health_facility_visit AS base
+GROUP BY
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created;
+
+--
+-- Name: adolescent_health_facility_visit; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_final.adolescent_health_facility_visit AS
+SELECT
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_date'::text)
+            THEN COALESCE(base.humanreadablevalues_, base.value_)
+            ELSE NULL::text
+        END
+    ) AS facility_visit_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'focus',
+                base.value_::JSONB->'nameValuePairs'->>'focus'
+            )
+            ELSE NULL::text
+        END
+    ) AS focus,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'provider',
+                base.value_::JSONB->'nameValuePairs'->>'provider'
+            )
+            ELSE NULL::text
+        END
+    ) AS provider,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_date',
+                base.value_::JSONB->'nameValuePairs'->>'referral_date'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_source',
+                base.value_::JSONB->'nameValuePairs'->>'referral_source'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_source,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_indicator',
+                base.value_::JSONB->'nameValuePairs'->>'referral_indicator'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_indicator,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'visit_type',
+                base.value_::JSONB->'nameValuePairs'->>'visit_type'
+            )
+            ELSE NULL::text
+        END
+    ) AS visit_type,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'has_referral',
+                base.value_::JSONB->'nameValuePairs'->>'has_referral'
+            )
+            ELSE NULL::text
+        END
+    ) AS has_referral
+FROM afyatek_views.adolescent_health_facility_visit AS base
+GROUP BY
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created;
+
 COMMIT;
