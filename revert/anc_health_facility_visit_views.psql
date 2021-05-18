@@ -1,0 +1,8 @@
+-- Revert afya-tek:anc_health_facility_visit_views from pg
+
+BEGIN;
+
+DROP VIEW IF EXISTS afyatek_final.anc_health_facility_visit CASCADE;
+DROP VIEW IF EXISTS afyatek_views.anc_health_facility_visit CASCADE;
+
+COMMIT;
