@@ -4,7 +4,7 @@ BEGIN;
 
 -- we need to create the following table
 --  public.anc_health_facility_visit
--- Unfortunately these ^^ tables exist in the database but not in the migrations
+-- Unfortunately this ^^ table exists in the database but not in the migrations
 -- and so we need a migration that adds them before we can use them in later migrations
 
 --
