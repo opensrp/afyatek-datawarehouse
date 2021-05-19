@@ -1,0 +1,7 @@
+-- Verify afya-tek:anc_health_facility_visit_views on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+ROLLBACK;

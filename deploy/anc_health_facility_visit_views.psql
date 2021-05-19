@@ -1,0 +1,167 @@
+-- Deploy afya-tek:anc_health_facility_visit_views to pg
+
+BEGIN;
+
+-- we need to create the following table
+--  public.anc_health_facility_visit
+-- Unfortunately this ^^ table exists in the database but not in the migrations
+-- and so we need a migration that adds them before we can use them in later migrations
+
+--
+-- Name: anc_health_facility_visit; Type: TABLE; Schema: public; Owner: dtreedev
+--
+
+CREATE TABLE IF NOT EXISTS public.anc_health_facility_visit (
+    id character varying(36) NOT NULL PRIMARY KEY,
+    base_entity_id character varying NOT NULL,
+    entity_type character varying NOT NULL,
+    event_date timestamp without time zone NOT NULL,
+    event_type character varying NOT NULL,
+    team character varying NOT NULL,
+    location_id character varying NOT NULL,
+    child_location_id character varying NOT NULL,
+    provider_id character varying NOT NULL,
+    server_version bigint DEFAULT 0 NOT NULL,
+    date_created timestamp without time zone NOT NULL,
+    obs jsonb NOT NULL
+);
+ALTER TABLE public.anc_health_facility_visit OWNER TO :db_user;
+
+--
+-- Name: anc_health_facility_visit; Type: VIEW; Schema: afyatek_views; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_views.anc_health_facility_visit AS
+ SELECT g.id,
+    g.base_entity_id,
+    g.entity_type,
+    g.event_date,
+    g.event_type,
+    g.team,
+    g.location_id,
+    g.child_location_id,
+    g.provider_id,
+    g.server_version,
+    g.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    ((observations.value -> 'values'::text) ->> 0) AS value_,
+    (observations.value ->> 'formSubmissionField'::text) AS formsubmissionfield_,
+    ((observations.value -> 'humanReadableValues'::text) ->> 0) AS humanreadablevalues_,
+    (observations.value ->> 'set'::text) AS set_,
+    (observations.value -> 'fieldCode'::text) AS fieldcode,
+    (observations.value -> 'fieldType'::text) AS fieldtype,
+    (observations.value -> 'parentCode'::text) AS parentcode,
+    (observations.value -> 'fieldDataType'::text) AS fielddatatype
+   FROM public.anc_health_facility_visit g,
+    LATERAL jsonb_array_elements(g.obs) observations(value);
+
+ALTER TABLE afyatek_views.anc_health_facility_visit OWNER TO :db_user;
+
+--
+-- Name: anc_health_facility_visit; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE VIEW afyatek_final.anc_health_facility_visit AS
+SELECT
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_date'::text)
+            THEN COALESCE(base.humanreadablevalues_, base.value_)
+            ELSE NULL::text
+        END
+    ) AS facility_visit_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'focus',
+                base.value_::JSONB->'nameValuePairs'->>'focus'
+            )
+            ELSE NULL::text
+        END
+    ) AS focus,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'provider',
+                base.value_::JSONB->'nameValuePairs'->>'provider'
+            )
+            ELSE NULL::text
+        END
+    ) AS provider,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_date',
+                base.value_::JSONB->'nameValuePairs'->>'referral_date'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_date,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_source',
+                base.value_::JSONB->'nameValuePairs'->>'referral_source'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_source,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'referral_indicator',
+                base.value_::JSONB->'nameValuePairs'->>'referral_indicator'
+            )
+            ELSE NULL::text
+        END
+    ) AS referral_indicator,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'visit_type',
+                base.value_::JSONB->'nameValuePairs'->>'visit_type'
+            )
+            ELSE NULL::text
+        END
+    ) AS visit_type,
+    max(
+        CASE
+            WHEN (base.formsubmissionfield_ = 'facility_visit_information'::text)
+            THEN COALESCE(
+                base.humanreadablevalues_::JSONB->'nameValuePairs'->>'has_referral',
+                base.value_::JSONB->'nameValuePairs'->>'has_referral'
+            )
+            ELSE NULL::text
+        END
+    ) AS has_referral
+FROM afyatek_views.anc_health_facility_visit AS base
+GROUP BY
+    base.base_entity_id,
+    base.entity_type,
+    base.event_date,
+    base.event_type,
+    base.team,
+    base.location_id,
+    base.child_location_id,
+    base.provider_id,
+    base.server_version,
+    base.date_created;
+
+COMMIT;

@@ -13,3 +13,4 @@ add_missing_task_fields 2021-04-28T08:48:43Z mosh <kjayanoris@ona.io> # Add miss
 pnc_addo_visits_views 2021-04-30T09:19:42Z mosh <kjayanoris@ona.io> # Adds views for pnc addo visits events.
 update_final_task_view 2021-05-07T09:25:21Z mosh <kjayanoris@ona.io> # Updates missing final task view.
 facility_visit_views 2021-05-07T09:48:57Z mosh <kjayanoris@ona.io> # Adds missing health facility visit views.
+anc_health_facility_visit_views 2021-05-18T14:23:18Z mosh <kjayanoris@ona.io> # Adds missing ANC health facility visit views.

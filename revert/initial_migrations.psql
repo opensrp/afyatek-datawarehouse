@@ -38,6 +38,7 @@ DROP TABLE db_state.existing_tables;
 DROP TABLE IF EXISTS public.pnc_health_facility_visit;
 DROP TABLE IF EXISTS public.adolescent_health_facility_visit;
 DROP TABLE IF EXISTS public.child_health_facility_visit;
+DROP TABLE IF EXISTS public.anc_health_facility_visit;
 
 -- has unique index
 DROP MATERIALIZED VIEW afyatek_views.danger_signs_child_lk_test_final;
