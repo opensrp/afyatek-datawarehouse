@@ -1,0 +1,7 @@
+-- Revert afya-tek:store_all_for_multiple_choice_fields from pg
+
+BEGIN;
+
+-- XXX Add DDLs here.
+
+COMMIT;

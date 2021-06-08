@@ -1,0 +1,7 @@
+-- Verify afya-tek:store_all_for_multiple_choice_fields on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+ROLLBACK;

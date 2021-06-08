@@ -1,0 +1,8 @@
+-- Deploy afya-tek:store_all_for_multiple_choice_fields to pg
+-- requires: add_normal_views
+
+BEGIN;
+
+-- XXX Add DDLs here.
+
+COMMIT;

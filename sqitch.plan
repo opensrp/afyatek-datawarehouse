@@ -14,3 +14,4 @@ pnc_addo_visits_views 2021-04-30T09:19:42Z mosh <kjayanoris@ona.io> # Adds views
 update_final_task_view 2021-05-07T09:25:21Z mosh <kjayanoris@ona.io> # Updates missing final task view.
 facility_visit_views 2021-05-07T09:48:57Z mosh <kjayanoris@ona.io> # Adds missing health facility visit views.
 anc_health_facility_visit_views 2021-05-18T14:23:18Z mosh <kjayanoris@ona.io> # Adds missing ANC health facility visit views.
+store_all_for_multiple_choice_fields [add_normal_views] 2021-06-08T11:57:57Z root <root@kingsley-ThinkPad> # For multiple-choice fields, store all choices.
