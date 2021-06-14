@@ -3,6 +3,480 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+SET search_path TO afyatek_final;
+
+--
+-- Name: child_addo_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
+ SELECT child_addo_visit_view.base_entity_id,
+    child_addo_visit_view.event_date,
+    child_addo_visit_view.team,
+    child_addo_visit_view.child_location_id,
+    child_addo_visit_view.location_id,
+    child_addo_visit_view.provider_id,
+    child_addo_visit_view.server_version,
+    child_addo_visit_view.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'start'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS start_time,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'end'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS end_time,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'deviceid'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS deviceid,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'simserial'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS simserial,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'subscriberid'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS subscriberid,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'service_provider'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS service_provider,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'chw_link'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS chw_link,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'save_n_refer'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS save_n_refer,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'referral_status'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS referral_status,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'dispense_options'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS dispense_options,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'condition_urgency'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS condition_urgency,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'all_meds_dispensed'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS all_meds_dispensed,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'addo_actions'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS addo_actions,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'danger_signs_captured'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS danger_signs_captured,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'child_present'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS child_present,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'medications_selected'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS medications_selected,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN
+                SELECT combine_field_values(COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_))
+            ELSE NULL::text
+     END) AS medicine_dispensed,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'linkage_recommendation'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS linkage_recommendation,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'addo_medication_to_give'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS addo_medication_to_give,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'asterisk_symbol'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS asterisk_symbol,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'addo_visit_date'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS addo_visit_date,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'child_conditions'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS child_conditions,
+    max(
+        CASE
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
+                SELECT combine_field_values(COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS danger_signs_present_child
+   FROM afyatek_views.child_addo_visit_view
+  GROUP BY child_addo_visit_view.base_entity_id, child_addo_visit_view.event_date, child_addo_visit_view.team, child_addo_visit_view.location_id, child_addo_visit_view.child_location_id, child_addo_visit_view.provider_id, child_addo_visit_view.server_version, child_addo_visit_view.date_created
+  ;
+ALTER TABLE afyatek_final.child_addo_visit_final OWNER TO :db_user;
+
+--
+-- Name: child_home_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE OR REPLACE VIEW afyatek_final.child_home_visit_final AS
+ SELECT child_home_visit_view.base_entity_id,
+    child_home_visit_view.event_date,
+    child_home_visit_view.team,
+    child_home_visit_view.location_id,
+    child_home_visit_view.child_location_id,
+    child_home_visit_view.provider_id,
+    child_home_visit_view.server_version,
+    child_home_visit_view.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
+                SELECT combine_field_values(COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_))
+            ELSE NULL::text
+        END) AS danger_signs_present_child,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'minor_illness_present_child'::text) THEN 
+                SELECT combine_field_values(COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_))
+            ELSE NULL::text
+        END) AS minor_illness_present_child,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'save_n_link'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS save_n_link,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'save_n_refer'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS save_n_refer,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'date_of_illness_1m5yr'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS date_of_illness_1m5yr,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'home_visit_date'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS home_visit_date,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'start'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS start_time,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'end'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS end_time,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'couselling_pnc'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS counselling_pnc,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'fam_llin_1m5yr'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS fam_llin_1m5yr,
+    max(
+        CASE
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'llin_2days_1m5yr'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS llin_2days_1m5yr
+   FROM afyatek_views.child_home_visit_view
+  GROUP BY child_home_visit_view.base_entity_id, child_home_visit_view.event_date, child_home_visit_view.team, child_home_visit_view.location_id, child_home_visit_view.child_location_id, child_home_visit_view.provider_id, child_home_visit_view.server_version, child_home_visit_view.date_created
+  ;
+ALTER TABLE afyatek_final.child_home_visit_final OWNER TO :db_user;
+
+--
+-- Name: anc_addo_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
+ SELECT anc_addo_visit_view.base_entity_id,
+    anc_addo_visit_view.event_date,
+    anc_addo_visit_view.team,
+    anc_addo_visit_view.child_location_id,
+    anc_addo_visit_view.location_id,
+    anc_addo_visit_view.provider_id,
+    anc_addo_visit_view.server_version,
+    anc_addo_visit_view.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'start'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS start_time,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'end'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS end_time,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'deviceid'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS deviceid,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'simserial'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS simserial,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'subscriberid'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS subscriberid,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'service_provider'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS service_provider,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
+                SELECT combine_field_values(COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_))
+            ELSE NULL::text
+        END) AS danger_signs_present,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'minor_illness_captured'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS minor_illness_captured,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'chw_link'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS chw_link,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'referral_status'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS referral_status,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'save_n_refer'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS save_n_refer,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'dispense_options'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS dispense_options,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'select_facility'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS select_facility,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'all_meds_dispensed'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS all_meds_dispensed,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'danger_signs_captured'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS danger_signs_captured,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'medications_selected'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS medications_selected,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
+                SELECT combine_field_values(COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_))
+            ELSE NULL::text
+        END) AS medicine_dispensed,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'minor_illnesses'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS minor_illnesses,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'pregnant_woman_present'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS pregnant_woman_present,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'client_commodities_dispensed'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS client_commodities_dispensed,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'addo_medication_to_give'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS addo_medication_to_give,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'asterisk_symbol'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS asterisk_symbol,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'addo_visit_date'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS addo_visit_date,
+    max(
+        CASE
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'linkage_recommendation'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            ELSE NULL::text
+        END) AS linkage_recommendation
+   FROM afyatek_views.anc_addo_visit_view
+  GROUP BY anc_addo_visit_view.base_entity_id, anc_addo_visit_view.event_date, anc_addo_visit_view.team, anc_addo_visit_view.location_id, anc_addo_visit_view.child_location_id, anc_addo_visit_view.provider_id, anc_addo_visit_view.server_version, anc_addo_visit_view.date_created
+  ;
+ALTER TABLE afyatek_final.anc_addo_visit_final OWNER TO :db_user;
+
+--
+-- Name: anc_home_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+--
+
+CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
+ SELECT anc_home_visit_view.base_entity_id,
+    anc_home_visit_view.event_date,
+    anc_home_visit_view.team,
+    anc_home_visit_view.location_id,
+    anc_home_visit_view.child_location_id,
+    anc_home_visit_view.provider_id,
+    anc_home_visit_view.server_version,
+    anc_home_visit_view.date_created,
+    public.uuid_generate_v4() AS unique_id,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
+                SELECT combine_field_values(COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_))
+            ELSE NULL::text
+        END) AS danger_signs_present,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'minor_illnesses'::text) THEN 
+                SELECT combine_field_values(COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_))
+            ELSE NULL::text
+        END) AS minor_illnesses,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'save_n_link'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS save_n_link,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'save_n_refer'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS save_n_refer,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'anc_visit_date'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS anc_visit_date,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'date_of_illness'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS date_of_illness,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'chw_comment_anc'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS chw_comment_anc,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'counselling_given'::text) THEN 
+                SELECT combine_field_values(COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_))
+            ELSE NULL::text
+        END) AS counselling_given,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'fam_planning'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS fam_planning,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'start'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS start_time,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'end'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS end_time,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'llin_given'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS llin_given,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'llin_condition'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS llin_condition,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'llin_2days'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS llin_2days,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'fam_llin'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS fam_llin,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'confirmed_visits'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS confirmed_visits,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'anc_hf_visit'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS anc_hf_visit,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'anc_hf_next_visit_date'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS anc_hf_next_visit_date,
+    max(
+        CASE
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'danger_signs_counseling'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            ELSE NULL::text
+        END) AS danger_signs_counseling
+   FROM afyatek_views.anc_home_visit_view
+  GROUP BY anc_home_visit_view.base_entity_id, anc_home_visit_view.event_date, anc_home_visit_view.team, anc_home_visit_view.location_id, anc_home_visit_view.child_location_id, anc_home_visit_view.provider_id, anc_home_visit_view.server_version, anc_home_visit_view.date_created
+  ;
+ALTER TABLE afyatek_final.anc_home_visit_final OWNER TO :db_user;
+
+CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
+
+CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
 
 COMMIT;
