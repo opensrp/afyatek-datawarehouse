@@ -2,6 +2,14 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
+-- DROP all views created with adjustments
+DROP VIEW IF EXISTS afyatek_final.child_addo_visit_final CASCADE;
+DROP VIEW IF EXISTS afyatek_final.child_home_visit_final CASCADE;
+DROP VIEW IF EXISTS afyatek_final.anc_addo_visit_final CASCADE;
+DROP VIEW IF EXISTS afyatek_final.anc_home_visit_final CASCADE;
+DROP VIEW IF EXISTS afyatek_final.adolescent_addo_visit_final CASCADE;
+DROP VIEW IF EXISTS afyatek_final.adolescent_home_visit_final CASCADE;
+DROP VIEW IF EXISTS afyatek_final.pnc_addo_visit_final CASCADE;
+DROP VIEW IF EXISTS afyatek_final.pnc_home_visit_final CASCADE;
 
 COMMIT;
