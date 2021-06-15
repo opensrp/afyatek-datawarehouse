@@ -103,7 +103,7 @@ CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
     max(
         CASE
             WHEN (child_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
-                public.combine_field_values(COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_))
+                public.combine_field_values(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -134,7 +134,7 @@ CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
     max(
         CASE
             WHEN (child_addo_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
-                public.combine_field_values(COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+                public.combine_field_values(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
             ELSE NULL::text
         END) AS danger_signs_present_child
    FROM afyatek_views.child_addo_visit_view
@@ -159,13 +159,13 @@ CREATE OR REPLACE VIEW afyatek_final.child_home_visit_final AS
     max(
         CASE
             WHEN (child_home_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
-                public.combine_field_values(COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_))
+                public.combine_field_values(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
             ELSE NULL::text
         END) AS danger_signs_present_child,
     max(
         CASE
             WHEN (child_home_visit_view.formsubmissionfield_ = 'minor_illness_present_child'::text) THEN 
-                public.combine_field_values(COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_))
+                public.combine_field_values(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
             ELSE NULL::text
         END) AS minor_illness_present_child,
     max(
@@ -265,7 +265,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
     max(
         CASE
             WHEN (anc_addo_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
-                public.combine_field_values(COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_))
+                public.combine_field_values(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
             ELSE NULL::text
         END) AS danger_signs_present,
     max(
@@ -316,7 +316,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
     max(
         CASE
             WHEN (anc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
-                public.combine_field_values(COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_))
+                public.combine_field_values(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -376,13 +376,13 @@ CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
     max(
         CASE
             WHEN (anc_home_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
-                public.combine_field_values(COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_))
+                public.combine_field_values(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
             ELSE NULL::text
         END) AS danger_signs_present,
     max(
         CASE
             WHEN (anc_home_visit_view.formsubmissionfield_ = 'minor_illnesses'::text) THEN 
-                public.combine_field_values(COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_))
+                public.combine_field_values(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
             ELSE NULL::text
         END) AS minor_illnesses,
     max(
@@ -413,7 +413,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
     max(
         CASE
             WHEN (anc_home_visit_view.formsubmissionfield_ = 'counselling_given'::text) THEN 
-                public.combine_field_values(COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_))
+                public.combine_field_values(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
             ELSE NULL::text
         END) AS counselling_given,
     max(
@@ -568,7 +568,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
     max(
         CASE
             WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
-                public.combine_field_values(COALESCE(adolescent_addo_visit_view.humanreadablevalues_, adolescent_addo_visit_view.value_))
+                public.combine_field_values(adolescent_addo_visit_view.humanreadablevalues_, adolescent_addo_visit_view.value_)
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -599,7 +599,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
     max(
         CASE
             WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN 
-                public.combine_field_values(COALESCE(adolescent_addo_visit_view.humanreadablevalues_, adolescent_addo_visit_view.value_))
+                public.combine_field_values(adolescent_addo_visit_view.humanreadablevalues_, adolescent_addo_visit_view.value_)
             ELSE NULL::text
         END) AS adolescent_condition_present,
     max(
@@ -669,7 +669,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
     max(
         CASE
             WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_counseling_given'::text) THEN 
-                public.combine_field_values(COALESCE(adolescent_home_visit_view.humanreadablevalues_, adolescent_home_visit_view.value_))
+                public.combine_field_values(adolescent_home_visit_view.humanreadablevalues_, adolescent_home_visit_view.value_)
             ELSE NULL::text
         END) AS adolescent_counseling_given,
     max(
@@ -690,7 +690,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
     max(
         CASE
             WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN 
-                public.combine_field_values(COALESCE(adolescent_home_visit_view.humanreadablevalues_, adolescent_home_visit_view.value_))
+                public.combine_field_values(adolescent_home_visit_view.humanreadablevalues_, adolescent_home_visit_view.value_)
             ELSE NULL::text
         END) AS adolescent_condition_present,
     max(
@@ -783,7 +783,7 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_addo_visit_final AS
     max(
         CASE
             WHEN (pnc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
-                public.combine_field_values(COALESCE(pnc_addo_visit_view.humanreadablevalues_, pnc_addo_visit_view.value_))
+                public.combine_field_values(pnc_addo_visit_view.humanreadablevalues_, pnc_addo_visit_view.value_)
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -997,7 +997,7 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
     max(
         CASE
             WHEN (pnc_home_visit_view.formsubmissionfield_ = 'minor_illness_present_mama'::text) THEN 
-                public.combine_field_values(COALESCE(pnc_home_visit_view.humanreadablevalues_, pnc_home_visit_view.value_))
+                public.combine_field_values(pnc_home_visit_view.humanreadablevalues_, pnc_home_visit_view.value_)
             ELSE NULL::text
         END) AS minor_illness_present_mama,
     max(
@@ -1028,7 +1028,7 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
     max(
         CASE
             WHEN (pnc_home_visit_view.formsubmissionfield_ = 'danger_signs_present_mama'::text) THEN 
-                public.combine_field_values(COALESCE(pnc_home_visit_view.humanreadablevalues_, pnc_home_visit_view.value_))
+                public.combine_field_values(pnc_home_visit_view.humanreadablevalues_, pnc_home_visit_view.value_)
             ELSE NULL::text
         END) AS danger_signs_present_mama,
     max(

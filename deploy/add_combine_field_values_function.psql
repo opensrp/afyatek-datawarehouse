@@ -8,10 +8,11 @@ BEGIN;
 -- :"schema" variable - and default to public.
 SET search_path TO "schema",public;
 
-CREATE OR REPLACE FUNCTION combine_field_values(form_data VARCHAR[]) RETURNS VARCHAR AS $$
+CREATE OR REPLACE FUNCTION combine_field_values(form_data_hr VARCHAR, form_data_raw VARCHAR) RETURNS VARCHAR AS $$
 -- this function is used to combine multiple choices in a field into 1 CSV
 -- params:
---      form_data - the data from the field
+--      form_data_hr - the data from the field humanreadablevalues_
+--      form_data_raw - the data from the field value_
 DECLARE
     values_csv VARCHAR;
 BEGIN
