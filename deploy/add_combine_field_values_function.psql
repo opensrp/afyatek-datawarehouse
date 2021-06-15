@@ -1,0 +1,24 @@
+-- Deploy afya-tek:add_combine_field_values_function to pg
+-- requires: setup
+-- requires: initial_migrations
+
+BEGIN;
+
+-- lets make it possible to create this function in any schema provided by the
+-- :"schema" variable - and default to public.
+SET search_path TO "schema",public;
+
+CREATE OR REPLACE FUNCTION combine_field_values(form_data VARCHAR[]) RETURNS VARCHAR AS $$
+-- this function is used to combine multiple choices in a field into 1 CSV
+-- params:
+--      form_data - the data from the field
+DECLARE
+    values_csv VARCHAR;
+BEGIN
+    values_csv = CONCAT('Hello', 'world');
+    RETURN values_csv;
+END;
+$$ LANGUAGE plpgsql;
+
+COMMIT;
+
