@@ -1,0 +1,7 @@
+-- Verify afya-tek:add_combine_field_values_function on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+ROLLBACK;
