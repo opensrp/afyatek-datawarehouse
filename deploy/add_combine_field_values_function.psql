@@ -9,7 +9,7 @@ BEGIN;
 SET search_path TO "schema",public;
 
 CREATE OR REPLACE FUNCTION combine_field_values(form_data_hr TEXT, form_data_raw TEXT) RETURNS VARCHAR AS $$
--- this function is used to combine multiple choices in a field into a stringified JSON data object that has key-value pairs.
+-- this function is used to combine multiple choices in a field into a string of comma-separated values.
 -- functionality is abstracted from view definition so that any changes to how multiple values are combined are only made
 -- here and immediately apply to all affected fields in all affected views.
 -- params:
@@ -20,8 +20,8 @@ DECLARE
     hr_json TEXT;
     raw_json TEXT;
 BEGIN
-    hr_json = form_data_hr::JSONB->'nameValuePairs';
-    raw_json = form_data_raw::JSONB->'nameValuePairs';
+    hr_json = form_data_hr;
+    raw_json = form_data_raw;
     values_csv = COALESCE(hr_json, raw_json);
     RETURN values_csv;
 END;
