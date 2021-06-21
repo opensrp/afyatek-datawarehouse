@@ -20,6 +20,7 @@ DECLARE
     hr_json TEXT;
     raw_json TEXT;
 BEGIN
+-- TODO: test for JSON, else loop and CSV values
     hr_json = form_data_hr;
     raw_json = form_data_raw;
     values_csv = COALESCE(hr_json, raw_json);
