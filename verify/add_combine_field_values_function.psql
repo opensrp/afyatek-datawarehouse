@@ -7,6 +7,11 @@ SET search_path TO public;
 -- check permissions for execution of function
 SELECT has_function_privilege('public' || '.combine_field_values(text, text)', 'execute');
 -- add data to afyatek_final.adolescent_addo_visit_final
-
+INSERT INTO afyatek_final.adolescent_addo_visit_final VALUES
+('008f3a23-f7a6-4209-9e56-841b7084ab05', '2021-03-09 23:38:35', 'addohfteam7', Null, '4aeb960e-c031-4665-bf97-53dd2e7e2bbe', 'addo125', 
+    '1615619936163', '2021-03-13 10:18:56.315', 'ca7a476c-c464-4ac8-8f7e-59db504507bf', Null, Null, Null, Null, Null, Null, 'Ndiyo', Null,
+    Null, Null, 'Ndiyo', Null, '<br />Unaweza ukampatia rufaa kwenda kituo cha kutolea huduma za afya au/na ukatoa ushauri na huduma hapo dukani. <br />',
+    'u2022 Maumivu ya tumbo chini ya kitovu <br />', Null, Null, Null, 
+    '<br /><br />Notisi: Maswali yote yenye alama ya nyota ni ya lazima (<font color=red>*</font>)', Null, true, '09-03-2021' ),
 
 ROLLBACK;
