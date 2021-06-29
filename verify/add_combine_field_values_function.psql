@@ -2,6 +2,11 @@
 
 BEGIN;
 
--- XXX Add verifications here.
+SET search_path TO public;
+
+-- check permissions for execution of function
+SELECT has_function_privilege('public' || '.combine_field_values(text, text)', 'execute');
+-- add data to afyatek_final.adolescent_addo_visit_final
+
 
 ROLLBACK;
