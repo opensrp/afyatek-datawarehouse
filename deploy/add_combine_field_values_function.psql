@@ -22,9 +22,9 @@ BEGIN
     EXECUTE existing_value_query INTO existing_value;
     -- concatenate with new value if not null
     IF existing_value IS NULL OR existing_value = '' THEN
-        values_csv = form_data
+        values_csv = form_data;
     ELSE 
-        SELECT CONCAT_WS(',', existing_value, form_data) AS values_csv
+        SELECT CONCAT_WS(',', existing_value, form_data) AS values_csv;
     END IF;
     RETURN values_csv;
 END;
