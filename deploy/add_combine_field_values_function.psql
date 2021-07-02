@@ -3,53 +3,29 @@
 -- requires: initial_migrations
 
 BEGIN;
-
 -- lets make it possible to create this function in any schema provided by the
 -- :"schema" variable - and default to public.
 SET search_path TO "schema",public;
 
-CREATE OR REPLACE FUNCTION is_json(input_text varchar) RETURNS boolean AS $$
--- this function takes text and establishes whether it is valid JSON
-  DECLARE
-    maybe_json json;
-  BEGIN
-    BEGIN
-      maybe_json := input_text;
-    EXCEPTION WHEN others THEN
-      RETURN FALSE;
-    END;
-
-    RETURN TRUE;
-  END;
-$$ LANGUAGE plpgsql IMMUTABLE;
-
-CREATE OR REPLACE FUNCTION combine_field_values(form_data_hr TEXT, form_data_raw TEXT) RETURNS VARCHAR AS $$
--- this function is used to combine multiple choices in a field into a JSON string, or passthrough if not JSON.
--- functionality is abstracted from view definition so that any changes to how multiple values are combined are only made
--- here and immediately apply to all affected fields in all affected views.
+CREATE OR REPLACE FUNCTION combine_field_values(form_data TEXT, existing_value_query TEXT) RETURNS VARCHAR AS $$
+-- this function is used to combine multiple choices in a field into a single CSV string, rather than new choices overwriting 
+-- stored ones. functionality is abstracted from view definition so that any changes to how multiple values are combined are 
+-- only made here and immediately apply to all affected fields in all affected views.
 -- params:
---      form_data_hr - the data from the field humanreadablevalues_
---      form_data_raw - the data from the field value_
+--      form_data - the coalesced data from the field humanreadablevalues_ and the field value_
+--      existing_value_query - query for fetching any already saved CSV to prepend to this
 DECLARE
     values_csv VARCHAR;
-    hr_json TEXT;
-    raw_json TEXT;
+    existing_value VARCHAR;
 BEGIN
--- test for JSON, else passthrough values
-    CASE
-        WHEN is_json(form_data_hr) THEN 
-          hr_json = form_data_hr::JSONB->'nameValuePairs';
-        ELSE
-          hr_json = form_data_hr;
-    END CASE;
-
-    CASE
-        WHEN is_json(form_data_raw) THEN 
-          raw_json = form_data_raw::JSONB->'nameValuePairs';
-        ELSE
-          raw_json = form_data_raw;
-    END CASE;
-    values_csv = COALESCE(hr_json, raw_json);
+    -- run query to get previous values
+    EXECUTE existing_value_query INTO existing_value;
+    -- concatenate with new value if not null
+    IF existing_value IS NULL OR existing_value = '' THEN
+        values_csv = form_data
+    ELSE 
+        SELECT CONCAT_WS(',', existing_value, form_data) AS values_csv
+    END IF;
     RETURN values_csv;
 END;
 $$ LANGUAGE plpgsql;
