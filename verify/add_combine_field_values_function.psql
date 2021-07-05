@@ -2,32 +2,6 @@
 
 BEGIN;
 
-SET search_path TO public;
-
--- check permissions for execution of function
-SELECT has_function_privilege('public' || '.combine_field_values(text, text)', 'execute');
-
--- -- clear data
-TRUNCATE public.adolescent_addo_visit;
-
--- add data to public.adolescent_addo_visit
-INSERT INTO public.adolescent_addo_visit VALUES
-('68725c88-f798-4ac5-abfd-f73a13ab346a', '027adf9b-6828-4d8d-8061-58806d59205a', 'ec_adolescent', '2020-10-25 16:09:39', 
-    'Adolescent ADDO Visit', 'addohfteam7', '4aeb960e-c031-4665-bf97-53dd2e7e2bbe', '', 'addo137', '1613640539345', '2021-02-18 12:28:59.359', 
-    '[{"set": [], "values": ["Mpatie dawa kulingana na mahitaji."], "fieldCode": "addo_medication_to_give", "fieldType": "formsubmissionField", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "addo_medication_to_give", "humanReadableValues": []}, {"set": [], "values": [""], "fieldCode": "", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "dispense_options", "humanReadableValues": ["yes"]}, {"set": [], "values": [""], "comments": "", "fieldCode": "", "fieldType": "", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "medicine_dispensed", "humanReadableValues": ["Cough preparations"]}, {"set": [], "values": [""], "comments": "", "fieldCode": "", "fieldType": "", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "medicine_dispensed", "humanReadableValues": ["Paracetamol tablets"]}, {"set": [], "values": ["u2022 Paracetamol tablets <br />u2022 Cough preparations <br />"], "fieldCode": "", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "medications_selected", "humanReadableValues": []}, {"set": [], "values": ["<br /><br />Notisi: Maswali yote yenye alama ya nyota ni ya lazima (<font color=red>*</font>)"], "fieldCode": "asterisk_symbol", "fieldType": "formsubmissionField", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "asterisk_symbol", "humanReadableValues": []}, {"set": [], "values": [""], "fieldCode": "", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "all_meds_dispensed", "humanReadableValues": ["yes"]}, {"set": [], "values": ["25-10-2020"], "fieldCode": "addo_visit_date", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "addo_visit_date", "humanReadableValues": []}]');
-
-INSERT INTO public.adolescent_addo_visit VALUES
-('68725c88-f798-4ac2-abfd-f73a13ab346a', '027adf9b-6828-4d5d-8061-58806d59205a', 'ec_adolescent', '2020-10-25 17:09:39', 
-    'Adolescent ADDO Visit', 'addohfteam7', '4aeb960e-c031-4665-bf97-93dd2e7e2bbe', '', 'addo137', '1613698539345', '2021-02-18 13:28:59.359', 
-    '[{"set": [], "values": ["Mpatie dawa kulingana na mahitaji."], "fieldCode": "addo_medication_to_give", "fieldType": "formsubmissionField", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "addo_medication_to_give", "humanReadableValues": []}, {"set": [], "values": [""], "fieldCode": "", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "dispense_options", "humanReadableValues": ["yes"]}, {"set": [], "values": [""], "comments": "", "fieldCode": "", "fieldType": "", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "medicine_dispensed", "humanReadableValues": ["Aspirin tablets"]}, {"set": [], "values": [""], "comments": "", "fieldCode": "", "fieldType": "", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "medicine_dispensed", "humanReadableValues": ["Amoxil capsules"]}, {"set": [], "values": ["u2022 Paracetamol tablets <br />u2022 Cough preparations <br />"], "fieldCode": "", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "medications_selected", "humanReadableValues": []}, {"set": [], "values": ["<br /><br />Notisi: Maswali yote yenye alama ya nyota ni ya lazima (<font color=red>*</font>)"], "fieldCode": "asterisk_symbol", "fieldType": "formsubmissionField", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "asterisk_symbol", "humanReadableValues": []}, {"set": [], "values": [""], "fieldCode": "", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "all_meds_dispensed", "humanReadableValues": ["yes"]}, {"set": [], "values": ["25-10-2020"], "fieldCode": "addo_visit_date", "fieldType": "concept", "parentCode": "", "fieldDataType": "text", "formSubmissionField": "addo_visit_date", "humanReadableValues": []}]');
-
--- check the view for stored value
-DO $$
-DECLARE
-    result varchar;
-BEGIN
-    SELECT medicine_dispensed INTO result FROM afyatek_final.adolescent_addo_visit_final WHERE base_entity_id = '027adf9b-6828-4d8d-8061-58806d59205a';
-    ASSERT result = 'Cough preparations,Paracetamol tablets';
-END $$;
+-- XXX Add verifications here.
 
 ROLLBACK;
