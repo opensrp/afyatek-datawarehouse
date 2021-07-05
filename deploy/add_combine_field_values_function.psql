@@ -7,25 +7,30 @@ BEGIN;
 -- :"schema" variable - and default to public.
 SET search_path TO "schema",public;
 
-CREATE OR REPLACE FUNCTION combine_field_values(form_data TEXT, existing_value_query TEXT) RETURNS VARCHAR AS $$
+CREATE OR REPLACE FUNCTION combine_field_values(field_name TEXT, existing_value_query TEXT) RETURNS VARCHAR AS $$
 -- this function is used to combine multiple choices in a field into a single CSV string, rather than new choices overwriting 
 -- stored ones. functionality is abstracted from view definition so that any changes to how multiple values are combined are 
 -- only made here and immediately apply to all affected fields in all affected views.
 -- params:
---      form_data - the coalesced data from the field humanreadablevalues_ and the field value_
---      existing_value_query - query for fetching any already saved CSV to prepend to this
+--      field_name - the name of the field that may have multiple values
+--      existing_value_query - query for fetching the original JSON object from the source table to parse
 DECLARE
     values_csv VARCHAR;
     existing_value VARCHAR;
+    form_field JSONB;
 BEGIN
     -- run query to get previous values
     EXECUTE existing_value_query INTO existing_value;
-    -- concatenate with new value if not null
-    IF existing_value IS NULL OR existing_value = '' THEN
-        values_csv = form_data;
-    ELSE 
-        SELECT CONCAT_WS(',', existing_value, form_data) AS values_csv;
-    END IF;
+    -- get the field of interest
+    FOR form_field IN SELECT jsonb_array_elements(existing_value::json) LOOP
+        IF form_field->>'formSubmissionField' = field_name THEN
+            IF values_csv IS NULL OR values_csv = '' THEN
+                values_csv = form_field->>'humanReadableValues'->>0;
+            ELSE 
+                SELECT CONCAT_WS(',', values_csv, form_field->>'humanReadableValues'->>0) AS values_csv;
+            END IF;
+        END IF;
+    END LOOP;
     RETURN values_csv;
 END;
 $$ LANGUAGE plpgsql;
