@@ -16,21 +16,25 @@ CREATE OR REPLACE FUNCTION combine_field_values(field_name TEXT, existing_value_
 --      existing_value_query - query for fetching the original JSON object from the source table to parse
 DECLARE
     values_csv VARCHAR;
-    existing_value VARCHAR;
-    form_field JSONB;
+    csv_element VARCHAR;
+    existing_value RECORD;
+    form_field VARCHAR;
 BEGIN
     -- run query to get previous values
     EXECUTE existing_value_query INTO existing_value;
     -- get the field of interest
-    FOR form_field IN SELECT jsonb_array_elements(existing_value::jsonb) LOOP
-        IF form_field->>'formSubmissionField' = field_name THEN
+    FOR form_field IN SELECT jsonb_array_elements(existing_value.obs) LOOP
+        IF form_field::jsonb->>'formSubmissionField' = field_name THEN
             IF values_csv IS NULL OR values_csv = '' THEN
-                values_csv = form_field->>'humanReadableValues';
+                csv_element := form_field::jsonb->>'humanReadableValues';
+                values_csv := csv_element::jsonb->>0;
             ELSE 
-                SELECT CONCAT_WS(',', values_csv, form_field->>'humanReadableValues') AS values_csv;
+                csv_element := form_field::jsonb->>'humanReadableValues';
+                values_csv := CONCAT_WS(',', values_csv, csv_element::jsonb->>0);
             END IF;
         END IF;
     END LOOP;
+
     RETURN values_csv;
 END;
 $$ LANGUAGE plpgsql;
