@@ -105,7 +105,7 @@ CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
         CASE
             WHEN (child_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN  
                 public.combine_field_values('medicine_dispensed',
-                'SELECT obs FROM public.child_addo_visit WHERE base_entity_id = ' || child_addo_visit_view.base_entity_id)
+                'SELECT obs FROM public.child_addo_visit WHERE base_entity_id = ''' || child_addo_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -137,7 +137,7 @@ CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
         CASE
             WHEN (child_addo_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
                 public.combine_field_values('danger_signs_present_child', 
-                'SELECT obs FROM public.child_addo_visit WHERE base_entity_id = ' || child_addo_visit_view.base_entity_id)
+                'SELECT obs FROM public.child_addo_visit WHERE base_entity_id = ''' || child_addo_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS danger_signs_present_child
    FROM afyatek_views.child_addo_visit_view
@@ -164,14 +164,14 @@ CREATE OR REPLACE VIEW afyatek_final.child_home_visit_final AS
         CASE
             WHEN (child_home_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
                 public.combine_field_values('danger_signs_present_child', 
-                'SELECT obs FROM public.child_home_visit WHERE base_entity_id = ' || child_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.child_home_visit WHERE base_entity_id = ''' || child_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS danger_signs_present_child,
     max(
         CASE
             WHEN (child_home_visit_view.formsubmissionfield_ = 'minor_illness_present_child'::text) THEN 
                 public.combine_field_values('minor_illness_present_child', 
-                'SELECT obs FROM public.child_home_visit WHERE base_entity_id = ' || child_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.child_home_visit WHERE base_entity_id = ''' || child_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS minor_illness_present_child,
     max(
@@ -273,7 +273,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
         CASE
             WHEN (anc_addo_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
                 public.combine_field_values('danger_signs_present', 
-                'SELECT obs FROM public.anc_addo_visit WHERE base_entity_id = ' || anc_addo_visit_view.base_entity_id)
+                'SELECT obs FROM public.anc_addo_visit WHERE base_entity_id = ''' || anc_addo_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS danger_signs_present,
     max(
@@ -325,7 +325,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
         CASE
             WHEN (anc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
                 public.combine_field_values('medicine_dispensed', 
-                'SELECT obs FROM public.anc_addo_visit WHERE base_entity_id = ' || anc_addo_visit_view.base_entity_id)
+                'SELECT obs FROM public.anc_addo_visit WHERE base_entity_id = ''' || anc_addo_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -387,14 +387,14 @@ CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
         CASE
             WHEN (anc_home_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
                 public.combine_field_values('danger_signs_present', 
-                'SELECT obs FROM public.anc_home_visit WHERE base_entity_id = ' || anc_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.anc_home_visit WHERE base_entity_id = ''' || anc_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS danger_signs_present,
     max(
         CASE
             WHEN (anc_home_visit_view.formsubmissionfield_ = 'minor_illnesses'::text) THEN 
                 public.combine_field_values('minor_illnesses', 
-                'SELECT obs FROM public.anc_home_visit WHERE base_entity_id = ' || anc_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.anc_home_visit WHERE base_entity_id = ''' || anc_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS minor_illnesses,
     max(
@@ -426,7 +426,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
         CASE
             WHEN (anc_home_visit_view.formsubmissionfield_ = 'counselling_given'::text) THEN 
                 public.combine_field_values('counselling_given', 
-                'SELECT obs FROM public.anc_home_visit WHERE base_entity_id = ' || anc_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.anc_home_visit WHERE base_entity_id = ''' || anc_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS counselling_given,
     max(
@@ -583,7 +583,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
         CASE
             WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
                 public.combine_field_values('medicine_dispensed', 
-                'SELECT obs FROM public.adolescent_addo_visit WHERE base_entity_id = ' || adolescent_addo_visit_view.base_entity_id)
+                'SELECT obs FROM public.adolescent_addo_visit WHERE base_entity_id = ''' || adolescent_addo_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -615,7 +615,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
         CASE
             WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN 
                 public.combine_field_values('adolescent_condition_present', 
-                'SELECT obs FROM public.adolescent_addo_visit WHERE base_entity_id = ' || adolescent_addo_visit_view.base_entity_id)
+                'SELECT obs FROM public.adolescent_addo_visit WHERE base_entity_id = ''' || adolescent_addo_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS adolescent_condition_present,
     max(
@@ -687,7 +687,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
         CASE
             WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_counseling_given'::text) THEN 
                 public.combine_field_values('adolescent_counseling_given', 
-                'SELECT obs FROM public.adolescent_home_visit WHERE base_entity_id = ' || adolescent_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.adolescent_home_visit WHERE base_entity_id = ''' || adolescent_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS adolescent_counseling_given,
     max(
@@ -709,7 +709,7 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
         CASE
             WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN 
                 public.combine_field_values('adolescent_condition_present', 
-                'SELECT obs FROM public.adolescent_home_visit WHERE base_entity_id = ' || adolescent_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.adolescent_home_visit WHERE base_entity_id = ''' || adolescent_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS adolescent_condition_present,
     max(
@@ -804,7 +804,7 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_addo_visit_final AS
         CASE
             WHEN (pnc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
                 public.combine_field_values('medicine_dispensed', 
-                'SELECT obs FROM public.pnc_addo_visit WHERE base_entity_id = ' || pnc_addo_visit_view.base_entity_id)
+                'SELECT obs FROM public.pnc_addo_visit WHERE base_entity_id = ''' || pnc_addo_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -1020,7 +1020,7 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
         CASE
             WHEN (pnc_home_visit_view.formsubmissionfield_ = 'minor_illness_present_mama'::text) THEN 
                 public.combine_field_values('minor_illness_present_mama', 
-                'SELECT obs FROM public.pnc_home_visit WHERE base_entity_id = ' || pnc_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.pnc_home_visit WHERE base_entity_id = ''' || pnc_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS minor_illness_present_mama,
     max(
@@ -1052,7 +1052,7 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
         CASE
             WHEN (pnc_home_visit_view.formsubmissionfield_ = 'danger_signs_present_mama'::text) THEN 
                 public.combine_field_values('danger_signs_present_mama', 
-                'SELECT obs FROM public.pnc_home_visit WHERE base_entity_id = ' || pnc_home_visit_view.base_entity_id)
+                'SELECT obs FROM public.pnc_home_visit WHERE base_entity_id = ''' || pnc_home_visit_view.base_entity_id || '''')
             ELSE NULL::text
         END) AS danger_signs_present_mama,
     max(

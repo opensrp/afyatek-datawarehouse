@@ -22,12 +22,12 @@ BEGIN
     -- run query to get previous values
     EXECUTE existing_value_query INTO existing_value;
     -- get the field of interest
-    FOR form_field IN SELECT jsonb_array_elements(existing_value::json) LOOP
+    FOR form_field IN SELECT jsonb_array_elements(existing_value::jsonb) LOOP
         IF form_field->>'formSubmissionField' = field_name THEN
             IF values_csv IS NULL OR values_csv = '' THEN
-                values_csv = form_field->>'humanReadableValues'->>0;
+                values_csv = form_field->>'humanReadableValues';
             ELSE 
-                SELECT CONCAT_WS(',', values_csv, form_field->>'humanReadableValues'->>0) AS values_csv;
+                SELECT CONCAT_WS(',', values_csv, form_field->>'humanReadableValues') AS values_csv;
             END IF;
         END IF;
     END LOOP;
