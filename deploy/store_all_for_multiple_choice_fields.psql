@@ -293,7 +293,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
         CASE
             WHEN (anc_addo_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
                 public.combine_field_values('danger_signs_present', 
-                'SELECT obs FROM public.anc_addo_visit WHERE id = ''' || anc_addo_visit_view.id, || '''')
+                'SELECT obs FROM public.anc_addo_visit WHERE id = ''' || anc_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS danger_signs_present,
     max(
@@ -345,7 +345,7 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
         CASE
             WHEN (anc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
                 public.combine_field_values('medicine_dispensed', 
-                'SELECT obs FROM public.anc_addo_visit WHERE id = ''' || anc_addo_visit_view.id, || '''')
+                'SELECT obs FROM public.anc_addo_visit WHERE id = ''' || anc_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
