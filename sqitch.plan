@@ -16,3 +16,4 @@ facility_visit_views 2021-05-07T09:48:57Z mosh <kjayanoris@ona.io> # Adds missin
 anc_health_facility_visit_views 2021-05-18T14:23:18Z mosh <kjayanoris@ona.io> # Adds missing ANC health facility visit views.
 add_combine_field_values_function [setup initial_migrations] 2021-06-14T10:21:30Z root <root@kingsley-ThinkPad> # For multiple-choice fields, store all choices.
 store_all_for_multiple_choice_fields [add_normal_views] 2021-06-08T11:57:57Z root <root@kingsley-ThinkPad> # For multiple-choice fields, store all choices.
+fix_multiple_choice_aggregation_views [store_all_for_multiple_choice_fields] 2021-09-13T15:27:48Z System Administrator <root@Ona-MacBook-Pro> # fixes multiple choice aggregation views
