@@ -1,0 +1,7 @@
+-- Verify afya-tek:fix_multiple_choice_aggregation_views on pg
+
+BEGIN;
+
+-- XXX Add verifications here.
+
+ROLLBACK;

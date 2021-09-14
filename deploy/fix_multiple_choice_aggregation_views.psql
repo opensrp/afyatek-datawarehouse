@@ -1,8 +1,14 @@
--- Revert afya-tek:store_all_for_multiple_choice_fields from pg
+-- Deploy afya-tek:fix_multiple_choice_aggregation_views to pg
+-- requires: store_all_for_multiple_choice_fields
 
 BEGIN;
 
--- RESTORE all views with adjustments back to their original state but maintain id column
+SET search_path TO afyatek_final;
+
+--
+-- Name: child_addo_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: medicine_dispensed and danger_signs_present_child are processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
  SELECT child_addo_visit_view.base_entity_id,
@@ -96,7 +102,9 @@ CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
         END) AS medications_selected,
     max(
         CASE
-            WHEN (child_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN  
+                public.combine_field_values('medicine_dispensed',
+                'SELECT obs FROM public.child_addo_visit WHERE id = ''' || child_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -126,14 +134,30 @@ CREATE OR REPLACE VIEW afyatek_final.child_addo_visit_final AS
         END) AS child_conditions,
     max(
         CASE
-            WHEN (child_addo_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN COALESCE(child_addo_visit_view.humanreadablevalues_, child_addo_visit_view.value_)
+            WHEN (child_addo_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
+                public.combine_field_values('danger_signs_present_child', 
+                'SELECT obs FROM public.child_addo_visit WHERE id = ''' || child_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS danger_signs_present_child,
-        child_addo_visit_view.id
+    child_addo_visit_view.id
    FROM afyatek_views.child_addo_visit_view
-  GROUP BY child_addo_visit_view.base_entity_id, child_addo_visit_view.event_date, child_addo_visit_view.team, child_addo_visit_view.location_id, child_addo_visit_view.child_location_id, child_addo_visit_view.provider_id, child_addo_visit_view.server_version, child_addo_visit_view.date_created, child_addo_visit_view.id
+  GROUP BY 
+    child_addo_visit_view.base_entity_id, 
+    child_addo_visit_view.event_date, 
+    child_addo_visit_view.team, 
+    child_addo_visit_view.location_id, 
+    child_addo_visit_view.child_location_id, 
+    child_addo_visit_view.provider_id, 
+    child_addo_visit_view.server_version, 
+    child_addo_visit_view.date_created, 
+    child_addo_visit_view.id
   ;
 ALTER TABLE afyatek_final.child_addo_visit_final OWNER TO :db_user;
+
+--
+-- Name: child_home_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: danger_signs_present_child and minor_illness_present_child are processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.child_home_visit_final AS
  SELECT child_home_visit_view.base_entity_id,
@@ -147,12 +171,16 @@ CREATE OR REPLACE VIEW afyatek_final.child_home_visit_final AS
     public.uuid_generate_v4() AS unique_id,
     max(
         CASE
-            WHEN (child_home_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'danger_signs_present_child'::text) THEN 
+                public.combine_field_values('danger_signs_present_child', 
+                'SELECT obs FROM public.child_home_visit WHERE id = ''' || child_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS danger_signs_present_child,
     max(
         CASE
-            WHEN (child_home_visit_view.formsubmissionfield_ = 'minor_illness_present_child'::text) THEN COALESCE(child_home_visit_view.humanreadablevalues_, child_home_visit_view.value_)
+            WHEN (child_home_visit_view.formsubmissionfield_ = 'minor_illness_present_child'::text) THEN 
+                public.combine_field_values('minor_illness_present_child', 
+                'SELECT obs FROM public.child_home_visit WHERE id = ''' || child_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS minor_illness_present_child,
     max(
@@ -202,9 +230,23 @@ CREATE OR REPLACE VIEW afyatek_final.child_home_visit_final AS
         END) AS llin_2days_1m5yr,
     child_home_visit_view.id
    FROM afyatek_views.child_home_visit_view
-  GROUP BY child_home_visit_view.base_entity_id, child_home_visit_view.event_date, child_home_visit_view.team, child_home_visit_view.location_id, child_home_visit_view.child_location_id, child_home_visit_view.provider_id, child_home_visit_view.server_version, child_home_visit_view.date_created, child_home_visit_view.id
+  GROUP BY 
+    child_home_visit_view.base_entity_id, 
+    child_home_visit_view.event_date, 
+    child_home_visit_view.team, 
+    child_home_visit_view.location_id, 
+    child_home_visit_view.child_location_id, 
+    child_home_visit_view.provider_id, 
+    child_home_visit_view.server_version, 
+    child_home_visit_view.date_created,
+    child_home_visit_view.id
   ;
 ALTER TABLE afyatek_final.child_home_visit_final OWNER TO :db_user;
+
+--
+-- Name: anc_addo_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: danger_signs_present and medicine_dispensed are processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
  SELECT anc_addo_visit_view.base_entity_id,
@@ -248,7 +290,9 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
         END) AS service_provider,
     max(
         CASE
-            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
+                public.combine_field_values('danger_signs_present', 
+                'SELECT obs FROM public.anc_addo_visit WHERE id = ''' || anc_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS danger_signs_present,
     max(
@@ -298,7 +342,9 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
         END) AS medications_selected,
     max(
         CASE
-            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN COALESCE(anc_addo_visit_view.humanreadablevalues_, anc_addo_visit_view.value_)
+            WHEN (anc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
+                public.combine_field_values('medicine_dispensed', 
+                'SELECT obs FROM public.anc_addo_visit WHERE id = ''' || anc_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -338,9 +384,23 @@ CREATE OR REPLACE VIEW afyatek_final.anc_addo_visit_final AS
         END) AS linkage_recommendation,
     anc_addo_visit_view.id
    FROM afyatek_views.anc_addo_visit_view
-  GROUP BY anc_addo_visit_view.base_entity_id, anc_addo_visit_view.event_date, anc_addo_visit_view.team, anc_addo_visit_view.location_id, anc_addo_visit_view.child_location_id, anc_addo_visit_view.provider_id, anc_addo_visit_view.server_version, anc_addo_visit_view.date_created, anc_addo_visit_view.id
+  GROUP BY 
+    anc_addo_visit_view.base_entity_id, 
+    anc_addo_visit_view.event_date, 
+    anc_addo_visit_view.team, 
+    anc_addo_visit_view.location_id, 
+    anc_addo_visit_view.child_location_id, 
+    anc_addo_visit_view.provider_id, 
+    anc_addo_visit_view.server_version, 
+    anc_addo_visit_view.date_created,
+    anc_addo_visit_view.id
   ;
 ALTER TABLE afyatek_final.anc_addo_visit_final OWNER TO :db_user;
+
+--
+-- Name: anc_home_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: danger_signs_present and minor_illnesses are processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
  SELECT anc_home_visit_view.base_entity_id,
@@ -354,12 +414,16 @@ CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
     public.uuid_generate_v4() AS unique_id,
     max(
         CASE
-            WHEN (anc_home_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'danger_signs_present'::text) THEN 
+                public.combine_field_values('danger_signs_present', 
+                'SELECT obs FROM public.anc_home_visit WHERE id = ''' || anc_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS danger_signs_present,
     max(
         CASE
-            WHEN (anc_home_visit_view.formsubmissionfield_ = 'minor_illnesses'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'minor_illnesses'::text) THEN 
+                public.combine_field_values('minor_illnesses', 
+                'SELECT obs FROM public.anc_home_visit WHERE id = ''' || anc_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS minor_illnesses,
     max(
@@ -389,7 +453,9 @@ CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
         END) AS chw_comment_anc,
     max(
         CASE
-            WHEN (anc_home_visit_view.formsubmissionfield_ = 'counselling_given'::text) THEN COALESCE(anc_home_visit_view.humanreadablevalues_, anc_home_visit_view.value_)
+            WHEN (anc_home_visit_view.formsubmissionfield_ = 'counselling_given'::text) THEN 
+                public.combine_field_values('counselling_given', 
+                'SELECT obs FROM public.anc_home_visit WHERE id = ''' || anc_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS counselling_given,
     max(
@@ -449,9 +515,23 @@ CREATE OR REPLACE VIEW afyatek_final.anc_home_visit_final AS
         END) AS danger_signs_counseling,
     anc_home_visit_view.id
    FROM afyatek_views.anc_home_visit_view
-  GROUP BY anc_home_visit_view.base_entity_id, anc_home_visit_view.event_date, anc_home_visit_view.team, anc_home_visit_view.location_id, anc_home_visit_view.child_location_id, anc_home_visit_view.provider_id, anc_home_visit_view.server_version, anc_home_visit_view.date_created, anc_home_visit_view.id
+  GROUP BY 
+    anc_home_visit_view.base_entity_id, 
+    anc_home_visit_view.event_date, 
+    anc_home_visit_view.team, 
+    anc_home_visit_view.location_id, 
+    anc_home_visit_view.child_location_id, 
+    anc_home_visit_view.provider_id, 
+    anc_home_visit_view.server_version, 
+    anc_home_visit_view.date_created,
+    anc_home_visit_view.id
   ;
 ALTER TABLE afyatek_final.anc_home_visit_final OWNER TO :db_user;
+
+--
+-- Name: adolescent_addo_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: medicine_dispensed is processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
  SELECT adolescent_addo_visit_view.base_entity_id,
@@ -540,7 +620,9 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
         END) AS medications_selected,
     max(
         CASE
-            WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN COALESCE(adolescent_addo_visit_view.humanreadablevalues_, adolescent_addo_visit_view.value_)
+            WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
+                public.combine_field_values('medicine_dispensed', 
+                'SELECT obs FROM public.adolescent_addo_visit WHERE id = ''' || adolescent_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -570,7 +652,9 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
         END) AS addo_visit_date,
     max(
         CASE
-            WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN COALESCE(adolescent_addo_visit_view.humanreadablevalues_, adolescent_addo_visit_view.value_)
+            WHEN (adolescent_addo_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN 
+                public.combine_field_values('adolescent_condition_present', 
+                'SELECT obs FROM public.adolescent_addo_visit WHERE id = ''' || adolescent_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS adolescent_condition_present,
     max(
@@ -580,9 +664,23 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_addo_visit_final AS
         END) AS linkage_recommendation,
     adolescent_addo_visit_view.id
    FROM afyatek_views.adolescent_addo_visit_view
-  GROUP BY adolescent_addo_visit_view.base_entity_id, adolescent_addo_visit_view.event_date, adolescent_addo_visit_view.team, adolescent_addo_visit_view.location_id, adolescent_addo_visit_view.child_location_id, adolescent_addo_visit_view.provider_id, adolescent_addo_visit_view.server_version, adolescent_addo_visit_view.date_created, adolescent_addo_visit_view.id
+  GROUP BY 
+    adolescent_addo_visit_view.base_entity_id, 
+    adolescent_addo_visit_view.event_date, 
+    adolescent_addo_visit_view.team, 
+    adolescent_addo_visit_view.location_id, 
+    adolescent_addo_visit_view.child_location_id, 
+    adolescent_addo_visit_view.provider_id, 
+    adolescent_addo_visit_view.server_version, 
+    adolescent_addo_visit_view.date_created,
+    adolescent_addo_visit_view.id
   ;
 ALTER TABLE afyatek_final.adolescent_addo_visit_final OWNER TO :db_user;
+
+--
+-- Name: adolescent_home_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: adolescent_counseling_given and adolescent_condition_present are processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
  SELECT adolescent_home_visit_view.base_entity_id,
@@ -636,7 +734,9 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
         END) AS date_of_illness,
     max(
         CASE
-            WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_counseling_given'::text) THEN COALESCE(adolescent_home_visit_view.humanreadablevalues_, adolescent_home_visit_view.value_)
+            WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_counseling_given'::text) THEN 
+                public.combine_field_values('adolescent_counseling_given', 
+                'SELECT obs FROM public.adolescent_home_visit WHERE id = ''' || adolescent_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS adolescent_counseling_given,
     max(
@@ -656,7 +756,9 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
         END) AS save_n_link,
     max(
         CASE
-            WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN COALESCE(adolescent_home_visit_view.humanreadablevalues_, adolescent_home_visit_view.value_)
+            WHEN (adolescent_home_visit_view.formsubmissionfield_ = 'adolescent_condition_present'::text) THEN 
+                public.combine_field_values('adolescent_condition_present', 
+                'SELECT obs FROM public.adolescent_home_visit WHERE id = ''' || adolescent_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS adolescent_condition_present,
     max(
@@ -676,9 +778,23 @@ CREATE OR REPLACE VIEW afyatek_final.adolescent_home_visit_final AS
         END) AS save_n_refer,
     adolescent_home_visit_view.id
    FROM afyatek_views.adolescent_home_visit_view
-  GROUP BY adolescent_home_visit_view.base_entity_id, adolescent_home_visit_view.event_date, adolescent_home_visit_view.team, adolescent_home_visit_view.location_id, adolescent_home_visit_view.child_location_id, adolescent_home_visit_view.provider_id, adolescent_home_visit_view.server_version, adolescent_home_visit_view.date_created, adolescent_home_visit_view.id
+  GROUP BY 
+    adolescent_home_visit_view.base_entity_id, 
+    adolescent_home_visit_view.event_date, 
+    adolescent_home_visit_view.team, 
+    adolescent_home_visit_view.location_id, 
+    adolescent_home_visit_view.child_location_id, 
+    adolescent_home_visit_view.provider_id, 
+    adolescent_home_visit_view.server_version, 
+    adolescent_home_visit_view.date_created,
+    adolescent_home_visit_view.id
   ;
 ALTER TABLE afyatek_final.adolescent_home_visit_final OWNER TO :db_user;
+
+--
+-- Name: pnc_addo_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: medicine_dispensed is processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.pnc_addo_visit_final AS
  SELECT
@@ -745,7 +861,9 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_addo_visit_final AS
         END) AS all_meds_dispensed,
     max(
         CASE
-            WHEN (pnc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN COALESCE(pnc_addo_visit_view.humanreadablevalues_, pnc_addo_visit_view.value_)
+            WHEN (pnc_addo_visit_view.formsubmissionfield_ = 'medicine_dispensed'::text) THEN 
+                public.combine_field_values('medicine_dispensed', 
+                'SELECT obs FROM public.pnc_addo_visit WHERE id = ''' || pnc_addo_visit_view.id || '''')
             ELSE NULL::text
         END) AS medicine_dispensed,
     max(
@@ -836,8 +954,14 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_addo_visit_final AS
     pnc_addo_visit_view.provider_id,
     pnc_addo_visit_view.server_version,
     pnc_addo_visit_view.date_created,
-    pnc_addo_visit_view.id;
+    pnc_addo_visit_view.id
+  ;
 ALTER TABLE afyatek_final.pnc_addo_visit_final OWNER TO :db_user;
+
+--
+-- Name: pnc_home_visit_final; Type: VIEW; Schema: afyatek_final; Owner: dtreedev
+-- Adjustments: minor_illness_present_mama is processed in combine_field_values to store multiple values
+--
 
 CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
  SELECT pnc_home_visit_view.base_entity_id,
@@ -956,7 +1080,9 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
         END) AS fp_method,
     max(
         CASE
-            WHEN (pnc_home_visit_view.formsubmissionfield_ = 'minor_illness_present_mama'::text) THEN COALESCE(pnc_home_visit_view.humanreadablevalues_, pnc_home_visit_view.value_)
+            WHEN (pnc_home_visit_view.formsubmissionfield_ = 'minor_illness_present_mama'::text) THEN 
+                public.combine_field_values('minor_illness_present_mama', 
+                'SELECT obs FROM public.pnc_home_visit WHERE id = ''' || pnc_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS minor_illness_present_mama,
     max(
@@ -986,7 +1112,9 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
         END) AS last_health_facility_visit_date,
     max(
         CASE
-            WHEN (pnc_home_visit_view.formsubmissionfield_ = 'danger_signs_present_mama'::text) THEN COALESCE(pnc_home_visit_view.humanreadablevalues_, pnc_home_visit_view.value_)
+            WHEN (pnc_home_visit_view.formsubmissionfield_ = 'danger_signs_present_mama'::text) THEN 
+                public.combine_field_values('danger_signs_present_mama', 
+                'SELECT obs FROM public.pnc_home_visit WHERE id = ''' || pnc_home_visit_view.id || '''')
             ELSE NULL::text
         END) AS danger_signs_present_mama,
     max(
@@ -1021,7 +1149,16 @@ CREATE OR REPLACE VIEW afyatek_final.pnc_home_visit_final AS
         END) AS save_n_link,
     pnc_home_visit_view.id
    FROM afyatek_views.pnc_home_visit_view
-  GROUP BY pnc_home_visit_view.base_entity_id, pnc_home_visit_view.event_date, pnc_home_visit_view.team, pnc_home_visit_view.location_id, pnc_home_visit_view.child_location_id, pnc_home_visit_view.provider_id, pnc_home_visit_view.server_version, pnc_home_visit_view.date_created, pnc_home_visit_view.id
+  GROUP BY 
+    pnc_home_visit_view.base_entity_id, 
+    pnc_home_visit_view.event_date, 
+    pnc_home_visit_view.team, 
+    pnc_home_visit_view.location_id, 
+    pnc_home_visit_view.child_location_id, 
+    pnc_home_visit_view.provider_id, 
+    pnc_home_visit_view.server_version, 
+    pnc_home_visit_view.date_created,
+    pnc_home_visit_view.id
   ;
 ALTER TABLE afyatek_final.pnc_home_visit_final OWNER TO :db_user;
 
